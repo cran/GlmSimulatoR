@@ -11,7 +11,7 @@ library(stats)
 
 set.seed(1)
 simdata <- simulate_gaussian(N = 1000, weights = c(1, 3), link = "inverse", 
-                             unrelated = 1, dispersion = .005)
+                             unrelated = 1, ancillary = .005)
 
 ## ------------------------------------------------------------------------
 ggplot(simdata, aes(x=Y)) + 
@@ -53,7 +53,7 @@ library(stats)
 
 set.seed(1)
 simdata <- simulate_gaussian(N = 1000, weights = c(.3, .8), link = "log", 
-                             unrelated = 1, dispersion = 1)
+                             unrelated = 1, ancillary = 1)
 
 ## ------------------------------------------------------------------------
 ggplot(simdata, aes(x=Y)) + 

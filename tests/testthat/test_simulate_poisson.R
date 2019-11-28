@@ -9,13 +9,11 @@ default <- simulate_poisson()
 test_that("Run default. Check structure.", {
   expect_true(all(class(default) == c("tbl_df", "tbl", "data.frame")))
   expect_true(nrow(default) == 10000)
-  expect_true(all(colnames(default) == c("Y", "X1", "X2", "X3")))
+  expect_true(all(colnames(default) == c("Y", "X1", "X2")))
   expect_true(min(default$X1) >= 1)
   expect_true(max(default$X1) <= 2)
   expect_true(min(default$X2) >= 1)
   expect_true(max(default$X2) <= 2)
-  expect_true(min(default$X3) >= 1)
-  expect_true(max(default$X3) <= 2)
 })
 rm(default)
 
@@ -50,6 +48,10 @@ test_that("All links execute", {
   expect_true(all(class(simulate_poisson(link = "sqrt")) == c("tbl_df", "tbl", "data.frame")))
 })
 
+test_that("Ancillary parameter function works if ancillary is provided", {
+  expect_true(simulate_poisson(ancillary = 10) %>% nrow() > 0)
+})
+
 ###############################################
 # Input checking
 ###############################################
@@ -60,6 +62,6 @@ test_that("Confirm input checing works.", {
   expect_error(simulate_poisson(weights = c()), NULL)
   expect_error(simulate_poisson(unrelated = -1), NULL)
   expect_error(simulate_poisson(unrelated = c(10, 20)), NULL)
-  expect_error(simulate_poisson(dispersion = -1), NULL)
-  expect_error(simulate_poisson(dispersion = c(10, 20)), NULL)
+  expect_error(simulate_poisson(ancillary = -1), NULL)
+  expect_error(simulate_poisson(ancillary = c(10, 20)), NULL)
 })

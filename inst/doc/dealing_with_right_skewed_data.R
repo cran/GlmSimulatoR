@@ -57,7 +57,7 @@ rm(Gamma, temp)
 #Make data
 set.seed(1)
 simdata <- simulate_gamma(N = 10000, link = "inverse", 
-                          weights = c(1, 2, 3), dispersion = .05)
+                          weights = c(1, 2, 3), ancillary = .05)
 #Confirm Y~gamma
 ggplot(simdata, aes(x = Y)) + 
   geom_histogram(bins = 30)
@@ -108,8 +108,8 @@ rm(Invgauss, temp)
 ## ------------------------------------------------------------------------
 #Make data
 set.seed(1)
-simdata <- simulate_inverse_gaussion(N = 10000, link = "inverse", 
-                          weights = c(1, 2, 3), dispersion = 10)
+simdata <- simulate_inverse_gaussian(N = 10000, link = "inverse", 
+                          weights = c(1, 2, 3), ancillary = 10)
 #Confirm Y is right skewed
 ggplot(simdata, aes(x = Y)) + 
   geom_histogram(bins = 30)

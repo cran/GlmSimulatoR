@@ -5,22 +5,28 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/gmcmacran/GlmSimulatoR.svg?branch=master)](https://travis-ci.org/gmcmacran/GlmSimulatoR)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/GlmSimulatoR)](https://cran.r-project.org/package=GlmSimulatoR)
+[![Codecov test
+coverage](https://codecov.io/gh/gmcmacran/GlmSimulatoR/branch/master/graph/badge.svg)](https://codecov.io/gh/gmcmacran/GlmSimulatoR?branch=master)
 <!-- badges: end -->
 
 Often the first problem in understanding the generalized linear model in
-a practical way is finding good data. Common problems in finding data
-are a small amount of rows, the response variable does not follow a
-family in the gm framework, or the data is messy and needs a lot of work
-before statistical analysis can begin. This package alleviates all of
-these by allowing you to create the data you want. With data in hand,
+a practical way is finding good data. Common problems include finding
+data with a small number of rows, the response variable does not follow
+a family in the glm framework, or the data is messy and needs a lot of
+work before statistical analysis can begin. This package alleviates all
+of these by allowing you to create the data you want. With data in hand,
 you can empirically answer any question you have.
 
 The goal of this package is to strike a balance between mathematical
 flexibility and simplicity of use. You can control the sample size, link
-function, number of unrelated variables, and dispersion for continuous
-distributions. Default values are carefully chosen so data can be
-generated without thinking about mathematical connections between
-weights, links, and distributions.
+function, number of unrelated variables, and ancillary parameter when
+applicable. Default values are carefully chosen so data can be generated
+without thinking about mathematical connections between weights, links,
+and distributions.
 
 ## Installation
 
@@ -28,7 +34,6 @@ You can install the released version of GlmSimulatoR from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-#Currently not on cran. Will be soon.
 install.packages("GlmSimulatoR")
 ```
 
