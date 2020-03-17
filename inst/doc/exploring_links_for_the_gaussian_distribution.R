@@ -41,9 +41,9 @@ glmInverseX2 <- glm(Y ~ X2, data = simdata, family = gaussian(link = "inverse"))
 glmInverseX1X2<- glm(Y ~ X1 + X2, data = simdata, family = gaussian(link = "inverse"))
 glmInverseX1X2U1<- glm(Y ~ X1 + X2 + Unrelated1, data = simdata, family = gaussian(link = "inverse"))
 
-summary(glmInverseX2)
-summary(glmInverseX1X2)
-summary(glmInverseX1X2U1)
+summary(glmInverseX2)$aic
+summary(glmInverseX1X2)$aic
+summary(glmInverseX1X2U1)$aic
 
 
 ## ------------------------------------------------------------------------
@@ -83,8 +83,8 @@ glmIdentity <- glm(Y ~ X1 + X2, data = simdata, family = gaussian(link = "identi
 glmInverse<- glm(Y ~ X1 + X2, data = simdata, family = gaussian(link = "inverse"))
 glmLog<- glm(Y ~ X1 + X2, data = simdata, family = gaussian(link = "log"))
 
-summary(glmIdentity)
-summary(glmInverse)
-summary(glmLog)
+summary(glmIdentity)$aic
+summary(glmInverse)$aic
+summary(glmLog)$aic
 
 

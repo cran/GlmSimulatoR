@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,27 +18,26 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -47,9 +46,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -95,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -315,109 +314,51 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="question-1-is-a-sample-size-of-200-enough-to-get-close-estimates-of-the-true-weights" class="section level3">
 <h3>Question 1: Is A Sample Size Of 200 Enough To Get Close Estimates Of The True Weights?</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(GlmSimulatoR)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-5"><a href="#cb1-5"></a>simdata &lt;-<span class="st"> </span><span class="kw">simulate_gaussian</span>(<span class="dt">N =</span> <span class="dv">200</span>, <span class="dt">weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a>glmModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">summary</span>(glmModel)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; </span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#&gt; glm(formula = Y ~ X1 + X2 + X3, family = gaussian(link = &quot;identity&quot;), </span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co">#&gt;     data = simdata)</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">#&gt; </span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; Deviance Residuals: </span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; -2.9437  -0.7212  -0.0368   0.7070   3.6459  </span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; </span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; (Intercept)   2.9138     0.7012   4.156 4.84e-05 ***</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="co">#&gt; X1            0.9834     0.2868   3.428  0.00074 ***</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="co">#&gt; X2            1.7882     0.2702   6.619 3.39e-10 ***</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="co">#&gt; X3            3.2822     0.2640  12.430  &lt; 2e-16 ***</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a><span class="co">#&gt; ---</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a><span class="co">#&gt; </span></span>
-<span id="cb1-27"><a href="#cb1-27"></a><span class="co">#&gt; (Dispersion parameter for gaussian family taken to be 1.178874)</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="co">#&gt; </span></span>
-<span id="cb1-29"><a href="#cb1-29"></a><span class="co">#&gt;     Null deviance: 479.50  on 199  degrees of freedom</span></span>
-<span id="cb1-30"><a href="#cb1-30"></a><span class="co">#&gt; Residual deviance: 231.06  on 196  degrees of freedom</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="co">#&gt; AIC: 606.45</span></span>
-<span id="cb1-32"><a href="#cb1-32"></a><span class="co">#&gt; </span></span>
-<span id="cb1-33"><a href="#cb1-33"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 2</span></span>
-<span id="cb1-34"><a href="#cb1-34"></a></span>
-<span id="cb1-35"><a href="#cb1-35"></a><span class="kw">rm</span>(glmModel)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(GlmSimulatoR)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">simdata &lt;-<span class="st"> </span><span class="kw">simulate_gaussian</span>(<span class="dt">N =</span> <span class="dv">200</span>, <span class="dt">weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7">glmModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="kw">summary</span>(glmModel)<span class="op">$</span>coefficients</a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt;              Estimate Std. Error   t value     Pr(&gt;|t|)</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt; (Intercept) 2.9138043  0.7011699  4.155633 4.843103e-05</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt; X1          0.9833586  0.2868396  3.428253 7.403616e-04</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; X2          1.7882468  0.2701817  6.618683 3.386406e-10</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; X3          3.2822020  0.2640478 12.430334 1.550439e-26</span></a>
+<a class="sourceLine" id="cb1-14" title="14"></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="kw">rm</span>(glmModel)</a></code></pre></div>
 <p>In the above, we see the estimates are close to the weights argument. The mathematics behind the generalized linear model worked well.</p>
 </div>
 <div id="question-2-is-the-model-from-lm-the-same-as-a-glm-model-with-gaussian-family-and-identity-link" class="section level3">
 <h3>Question 2: Is The Model From Lm The Same As A Glm Model With Gaussian Family and Identity Link?</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(GlmSimulatoR)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a>simdata &lt;-<span class="st"> </span><span class="kw">simulate_gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a>linearModel &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3, <span class="dt">data =</span> simdata)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>glmModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="kw">summary</span>(linearModel)</span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; </span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; lm(formula = Y ~ X1 + X2 + X3, data = simdata)</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; </span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; -3.6961 -0.6711  0.0049  0.6534  3.6232 </span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; </span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; (Intercept)  3.06105    0.08961   34.16   &lt;2e-16 ***</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; X1           0.99941    0.03428   29.15   &lt;2e-16 ***</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">#&gt; X2           1.98930    0.03456   57.56   &lt;2e-16 ***</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt; X3           2.98383    0.03471   85.97   &lt;2e-16 ***</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt; ---</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt; </span></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="co">#&gt; Residual standard error: 0.9976 on 9996 degrees of freedom</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="co">#&gt; Multiple R-squared:  0.5377, Adjusted R-squared:  0.5375 </span></span>
-<span id="cb2-30"><a href="#cb2-30"></a><span class="co">#&gt; F-statistic:  3875 on 3 and 9996 DF,  p-value: &lt; 2.2e-16</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a><span class="kw">summary</span>(glmModel)</span>
-<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#&gt; </span></span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#&gt; glm(formula = Y ~ X1 + X2 + X3, family = gaussian(link = &quot;identity&quot;), </span></span>
-<span id="cb2-35"><a href="#cb2-35"></a><span class="co">#&gt;     data = simdata)</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="co">#&gt; </span></span>
-<span id="cb2-37"><a href="#cb2-37"></a><span class="co">#&gt; Deviance Residuals: </span></span>
-<span id="cb2-38"><a href="#cb2-38"></a><span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span></span>
-<span id="cb2-39"><a href="#cb2-39"></a><span class="co">#&gt; -3.6961  -0.6711   0.0049   0.6534   3.6232  </span></span>
-<span id="cb2-40"><a href="#cb2-40"></a><span class="co">#&gt; </span></span>
-<span id="cb2-41"><a href="#cb2-41"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb2-42"><a href="#cb2-42"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb2-43"><a href="#cb2-43"></a><span class="co">#&gt; (Intercept)  3.06105    0.08961   34.16   &lt;2e-16 ***</span></span>
-<span id="cb2-44"><a href="#cb2-44"></a><span class="co">#&gt; X1           0.99941    0.03428   29.15   &lt;2e-16 ***</span></span>
-<span id="cb2-45"><a href="#cb2-45"></a><span class="co">#&gt; X2           1.98930    0.03456   57.56   &lt;2e-16 ***</span></span>
-<span id="cb2-46"><a href="#cb2-46"></a><span class="co">#&gt; X3           2.98383    0.03471   85.97   &lt;2e-16 ***</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a><span class="co">#&gt; ---</span></span>
-<span id="cb2-48"><a href="#cb2-48"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb2-49"><a href="#cb2-49"></a><span class="co">#&gt; </span></span>
-<span id="cb2-50"><a href="#cb2-50"></a><span class="co">#&gt; (Dispersion parameter for gaussian family taken to be 0.9952888)</span></span>
-<span id="cb2-51"><a href="#cb2-51"></a><span class="co">#&gt; </span></span>
-<span id="cb2-52"><a href="#cb2-52"></a><span class="co">#&gt;     Null deviance: 21518.1  on 9999  degrees of freedom</span></span>
-<span id="cb2-53"><a href="#cb2-53"></a><span class="co">#&gt; Residual deviance:  9948.9  on 9996  degrees of freedom</span></span>
-<span id="cb2-54"><a href="#cb2-54"></a><span class="co">#&gt; AIC: 28338</span></span>
-<span id="cb2-55"><a href="#cb2-55"></a><span class="co">#&gt; </span></span>
-<span id="cb2-56"><a href="#cb2-56"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 2</span></span>
-<span id="cb2-57"><a href="#cb2-57"></a></span>
-<span id="cb2-58"><a href="#cb2-58"></a><span class="kw">rm</span>(simdata, linearModel, glmModel)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(GlmSimulatoR)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5">simdata &lt;-<span class="st"> </span><span class="kw">simulate_gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6"></a>
+<a class="sourceLine" id="cb2-7" title="7">linearModel &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3, <span class="dt">data =</span> simdata)</a>
+<a class="sourceLine" id="cb2-8" title="8">glmModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;identity&quot;</span>))</a>
+<a class="sourceLine" id="cb2-9" title="9"></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="kw">summary</span>(linearModel)<span class="op">$</span>coefficients</a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;              Estimate Std. Error  t value      Pr(&gt;|t|)</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; (Intercept) 3.0610462 0.08961157 34.15905 5.565886e-242</span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; X1          0.9994106 0.03428367 29.15122 2.238522e-179</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; X2          1.9892954 0.03455924 57.56189  0.000000e+00</span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; X3          2.9838318 0.03470746 85.97092  0.000000e+00</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="kw">summary</span>(glmModel)<span class="op">$</span>coefficients</a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt;              Estimate Std. Error  t value      Pr(&gt;|t|)</span></a>
+<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; (Intercept) 3.0610462 0.08961157 34.15905 5.565886e-242</span></a>
+<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; X1          0.9994106 0.03428367 29.15122 2.238522e-179</span></a>
+<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; X2          1.9892954 0.03455924 57.56189  0.000000e+00</span></a>
+<a class="sourceLine" id="cb2-21" title="21"><span class="co">#&gt; X3          2.9838318 0.03470746 85.97092  0.000000e+00</span></a>
+<a class="sourceLine" id="cb2-22" title="22"></a>
+<a class="sourceLine" id="cb2-23" title="23"><span class="kw">rm</span>(simdata, linearModel, glmModel)</a></code></pre></div>
 <p>In the above, we see the coefficients and standard errors are the same between the linear model and the generalized linear model. This confirms the linear model is identical to a generalized linear model with gaussian family and identity link.</p>
 </div>
 
-
-
-<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
