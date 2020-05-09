@@ -7,34 +7,38 @@
 #' @param ancillary Ancillary parameter for continuous families and negative binomial. See details.
 #' @return A tibble with a response variable and predictors.
 #' @details
-#' The gaussian family accepts the links identity, log and inverse.
-#' The binomial family accepts the links logit, probit, cauchit,
-#' (corresponding to logistic, normal and Cauchy CDFs respectively)
-#' log and cloglog (complementary log-log).
-#' The gamma family accepts the links inverse, identity and log.
-#' The poisson family accepts the links log, identity, and sqrt.
-#' The inverse gaussian family accepts the links 1/mu^2, inverse, identity and log.
-#' The negative binomial family accepts the links log, identity, and sqrt using glm.nb in MASS.
-#' The tweedie family accepts the links log, identity, sqrt and inverse.
 #'
-#' Default links are identity for gaussian, logit for binomial, inverse for gamma, log for poisson,
-#' 1/mu^2 for inverse gaussian, log for negative binomial and log for tweedie.
-#'
-#' It is possible to pick weights that cause inverse link(X * weights) to be mathematically invalid.
+#' For many families, it is possible to pick weights that cause inverse link(X * weights) to be mathematically invalid.
 #' For example, the log link for binomial regression defines P(Y=1) as exp(X * weights) which can be above one.
-#' If this happens, the function will error with a helpful message. For P(Y=1) to be between zero and one,
-#' weights should be small. In general, the log link is the most troublesome to work with. It is recommended to use weights
-#' in the neighborhood of .1 to .3 for log link.
+#' If this happens, the function will error with a helpful message.
 #'
-#' For the inverse gaussian family, the inverse link function needs weights*X to be positive.
+#' The intercept in the underlying link(Y) = X * weights + intercept is always max(weights). In
+#' simulate_gaussian(link = "inverse", weights = 1:3), the model is (1/Y) = 1*X1 + 2*X2 + 3*X3 + 3.
 #'
-#' The intercept in the underlying link(Y) = X * weights + intercept is always max(weights). For example,
-#' simulate_gaussian(link = "inverse", weights = 1:3) the model is (1/Y) = 1*X1 + 2*X2 + 3*X3 + 3.
 #'
-#' The continuous families have an ancillary parameter. For the gaussian family, it is standard deviation.
-#' Default value is 1. For the gamma family, it is the scale parameter. Default value is .05. For inverse gaussian,
-#' it is the dispersion parameter. Default value 1/3. For negative binomial it is theta. Default value 1. For
-#' tweedie, it is rho. Default value 1.15. Not used in binomial and poisson.
+#'  links
+#'  \itemize{
+#'   \item gaussian: identity, log, inverse
+#'   \item binomial: logit, probit, cauchit, loglog, cloglog, log, logc, identity
+#'   \item gamma: inverse, identity, log
+#'   \item poisson: log, identity, sqrt
+#'   \item inverse gaussian: 1/mu^2, inverse, identity, log
+#'   \item negative binomial: log, identity, sqrt
+#'   \item tweedie: log, identity, sqrt, inverse
+#'   }
+#'  The default link is the first link listed for each family.
+#'
+#'
+#'  ancillary parameter
+#'  \itemize{
+#'   \item gaussian: standard deviation
+#'   \item binomial: N/A
+#'   \item gamma: scale parameter
+#'   \item poisson: N/A
+#'   \item inverse gaussian: dispersion parameter
+#'   \item negative binomial: theta.
+#'   \item tweedie: rho
+#'   }
 #'
 #' @examples
 #' library(GlmSimulatoR)
@@ -102,10 +106,10 @@ simulate_gaussian <- make_simulating_function(
 #' @rdname simulate_gaussian
 #' @export
 simulate_binomial <- make_simulating_function(
-  validLinks = c("logit", "probit", "cauchit", "log", "cloglog"),
+  validLinks = c("logit", "probit", "cauchit", "log", "cloglog", "loglog", "logc", "identity"),
   defaultLink = "logit",
   defaultWeights = c(.1, .2),
-  make_response = create_binomial,
+  make_response = GlmSimulatoR:::create_binomial,
   defaultAncillary = NULL
 )
 
@@ -115,7 +119,7 @@ simulate_gamma <- make_simulating_function(
   validLinks = c("inverse", "identity", "log"),
   defaultLink = "inverse",
   defaultWeights = 1:3,
-  make_response = create_gamma,
+  make_response = GlmSimulatoR:::create_gamma,
   defaultAncillary = .05
 )
 
@@ -125,7 +129,7 @@ simulate_poisson <- make_simulating_function(
   validLinks = c("log", "identity", "sqrt"),
   defaultLink = "log",
   defaultWeights = c(.5, 1),
-  make_response = create_poisson,
+  make_response = GlmSimulatoR:::create_poisson,
   defaultAncillary = NULL
 )
 
@@ -135,8 +139,8 @@ simulate_inverse_gaussian <- make_simulating_function(
   validLinks = c("1/mu^2", "inverse", "identity", "log"),
   defaultLink = "1/mu^2",
   defaultWeights = 1:3,
-  make_response = create_inverse_gaussian,
-  defaultAncillary = 1 / 3
+  make_response = GlmSimulatoR:::create_inverse_gaussian,
+  defaultAncillary = .3333
 )
 
 #' @rdname simulate_gaussian
@@ -145,7 +149,7 @@ simulate_negative_binomial <- make_simulating_function(
   validLinks = c("log", "identity", "sqrt"),
   defaultLink = "log",
   defaultWeights = c(.5, 1),
-  make_response = create_negative_binomial,
+  make_response = GlmSimulatoR:::create_negative_binomial,
   defaultAncillary = 1
 )
 
@@ -155,6 +159,6 @@ simulate_tweedie <- make_simulating_function(
   validLinks = c("log", "identity", "sqrt", "inverse"),
   defaultLink = "log",
   defaultWeights = c(.02),
-  make_response = create_tweedie,
+  make_response = GlmSimulatoR:::create_tweedie,
   defaultAncillary = 1.15
 )

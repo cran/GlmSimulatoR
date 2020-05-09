@@ -1,7 +1,7 @@
 Package: GlmSimulatoR
 Type: Package
 Title: Creates Ideal Data for Generalized Linear Models
-Version: 0.2.1
+Version: 0.2.2
 Author: Greg McMahan
 Maintainer: Greg McMahan <gmcmacran@gmail.com>
 Description: Have you ever struggled to find "good data" for a generalized linear model? Would you like
@@ -17,6 +17,6 @@ RoxygenNote: 6.1.1
 Suggests: testthat, knitr, rmarkdown, covr
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-03-17 01:22:35 UTC; gmcma
+Packaged: 2020-05-09 02:49:54 UTC; gmcma
 Repository: CRAN
-Date/Publication: 2020-03-17 10:10:03 UTC
+Date/Publication: 2020-05-09 04:30:02 UTC

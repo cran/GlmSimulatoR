@@ -17,13 +17,11 @@ temp <- tibble(gamma = Gamma)
 ggplot(temp, aes(x=gamma)) + 
   geom_histogram(bins = 30)
 
-
 #Very right skewed and spread out more. Skewness 2
 Gamma <- rgamma(1000, shape = 1, scale = 5)
 temp <- tibble(gamma = Gamma)
 ggplot(temp, aes(x=gamma)) + 
   geom_histogram(bins = 30)
-
 
 #Hump moves slightly towards the middle. Skewness 1.414214
 Gamma <- rgamma(1000, shape = 2, scale = 1)
@@ -58,7 +56,7 @@ rm(Gamma, temp)
 set.seed(1)
 simdata <- simulate_gamma(N = 10000, link = "inverse", 
                           weights = c(1, 2, 3), ancillary = .05)
-#Confirm Y~gamma
+#Confirm Y ~ gamma
 ggplot(simdata, aes(x = Y)) + 
   geom_histogram(bins = 30)
 
