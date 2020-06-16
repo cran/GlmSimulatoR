@@ -4,10 +4,18 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----setup---------------------------------------------------------------
+## ----example1------------------------------------------------------------
 library(GlmSimulatoR)
 library(ggplot2)
 
+set.seed(1)
+simdata <- simulate_gaussian(N = 100, weights = 1, xrange = 10, ancillary = 1) #GlmSimulatoR function
+ggplot(simdata, aes(x = X1, y = Y)) + 
+  geom_point()
+
+rm(simdata)
+
+## ----setup---------------------------------------------------------------
 set.seed(1)
 simdata <- simulate_gaussian(N = 200, weights = c(1, 2, 3))
 
