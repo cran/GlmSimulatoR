@@ -1,10 +1,10 @@
-## ---- include = FALSE----------------------------------------------------
+## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----setup---------------------------------------------------------------
+## ----setup--------------------------------------------------------------------
 library(GlmSimulatoR)
 library(ggplot2)
 library(MASS)
@@ -34,7 +34,7 @@ rm(simdata, scopeArg, glmSearch, startingModel)
 
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #Creating data to work with
 set.seed(2)
 simdata <- simulate_inverse_gaussian(N = 100000, link = "1/mu^2", 
@@ -61,7 +61,7 @@ summary(glmSearch)
 
 rm(simdata, scopeArg, glmSearch, startingModel)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #Creating data to work with
 set.seed(3)
 simdata <- simulate_inverse_gaussian(N = 1000, link = "1/mu^2", 
@@ -85,7 +85,7 @@ summary(glmSearch)
 
 rm(simdata, scopeArg, glmSearch, startingModel)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #Creating data to work with
 set.seed(4)
 simdata <- simulate_inverse_gaussian(N = 1000, link = "1/mu^2", 

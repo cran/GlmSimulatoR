@@ -1,8 +1,8 @@
-## ----setup, include=FALSE------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = T,
                       results = "hide")
 
-## ----PoissonHistogram, echo=TRUE-----------------------------------------
+## ----PoissonHistogram, echo=TRUE----------------------------------------------
 library(stats)
 library(MASS)
 library(dplyr, warn.conflicts= FALSE)
@@ -33,11 +33,11 @@ ggplot(poissonDF, aes(x=poisson)) +
   geom_histogram(bins = 100)
 
 
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rm(poisson, poissonDF)
 
 
-## ----PoissonGlm, echo=TRUE, results='markup'-----------------------------
+## ----PoissonGlm, echo=TRUE, results='markup'----------------------------------
 
 set.seed(1)
 simdata <- simulate_poisson(N = 10000, weights = c(.5, 1))
@@ -50,10 +50,10 @@ glmPoisson <- glm(Y ~ X1 + X2, data = simdata, family = poisson(link = "log"))
 summary(glmPoisson)
 
 
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rm(simdata, glmPoisson)
 
-## ----PoissonMuSigma, echo=TRUE, results='markup'-------------------------
+## ----PoissonMuSigma, echo=TRUE, results='markup'------------------------------
 
 set.seed(1)
 
@@ -72,10 +72,10 @@ poisson <- rpois(n = 10000, lambda = 10)
 mean(poisson)
 var(poisson)
 
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rm(poisson)
 
-## ----PoissonNegativeBinomial1, echo=TRUE---------------------------------
+## ----PoissonNegativeBinomial1, echo=TRUE--------------------------------------
 set.seed(1)
 
 poisson <- rpois(n = 10000, lambda = 1)
@@ -91,10 +91,10 @@ ggplot(negBinDF, aes(x=negBin)) +
   geom_histogram(bins = 100)
 
 
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rm(poisson, poissonDF, negBin, negBinDF)
 
-## ----PoissonNegativeBinomial2, echo=TRUE---------------------------------
+## ----PoissonNegativeBinomial2, echo=TRUE--------------------------------------
 set.seed(1)
 
 poisson <- rpois(n = 10000, lambda = 1)
@@ -109,10 +109,10 @@ negBinDF <- as.data.frame(x=negBin)
 ggplot(negBinDF, aes(x=negBin)) + 
   geom_histogram(bins = 100)
 
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rm(poisson, poissonDF, negBin, negBinDF)
 
-## ----NegativeBinomialGlm, echo=TRUE, results='markup'--------------------
+## ----NegativeBinomialGlm, echo=TRUE, results='markup'-------------------------
 
 set.seed(1)
 simdata <- simulate_negative_binomial(N = 10000, weights = c(.5, 1), ancillary = 5) #ancillary is theta.
@@ -129,6 +129,6 @@ summary(glmPoisson)
 summary(glmNB)
 
 
-## ---- echo=FALSE---------------------------------------------------------
+## ---- echo=FALSE--------------------------------------------------------------
 rm(simdata, glmPoisson, glmNB)
 

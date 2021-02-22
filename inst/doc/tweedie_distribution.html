@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
 
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -115,9 +115,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -286,7 +283,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -330,7 +328,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb1-7" title="7"></a>
 <a class="sourceLine" id="cb1-8" title="8"><span class="kw">ggplot</span>(simdata, <span class="kw">aes</span>(<span class="dt">x =</span> Y)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-9" title="9"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>The response variable is usually zero, but sometimes it is positive. This is what makes the tweedie distribution unique.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">glmModel &lt;-<span class="st"> </span><span class="kw">cpglm</span>(Y <span class="op">~</span><span class="st"> </span>X1, <span class="dt">data =</span>simdata, <span class="dt">link =</span> <span class="st">&quot;log&quot;</span>)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw">summary</span>(glmModel)</a></code></pre></div>
@@ -357,6 +355,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>The estimated index parameter is very close to <span class="math inline">\(\rho\)</span> (the ancillary argument), and the estimated weights are close to <span class="math inline">\(\beta\)</span> (the weight argument). Overall the function worked well.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

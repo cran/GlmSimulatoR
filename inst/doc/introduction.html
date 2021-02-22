@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
 
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -115,9 +115,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -286,7 +283,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -321,7 +319,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb1-5" title="5">simdata &lt;-<span class="st"> </span><span class="kw">simulate_gaussian</span>(<span class="dt">N =</span> <span class="dv">100</span>, <span class="dt">weights =</span> <span class="dv">1</span>, <span class="dt">xrange =</span> <span class="dv">10</span>, <span class="dt">ancillary =</span> <span class="dv">1</span>) <span class="co">#GlmSimulatoR function</span></a>
 <a class="sourceLine" id="cb1-6" title="6"><span class="kw">ggplot</span>(simdata, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw">rm</span>(simdata)</a></code></pre></div>
 </div>
@@ -369,6 +367,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>In the above, we see the coefficients and standard errors are the same between the linear model and the generalized linear model. This confirms the linear model is identical to a generalized linear model with gaussian family and identity link.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
