@@ -6,17 +6,12 @@ knitr::opts_chunk$set(
 
 ## ----setup--------------------------------------------------------------------
 library(GlmSimulatoR)
-library(ggplot2)
 library(MASS)
 
 #Creating data to work with
 set.seed(1)
 simdata <- simulate_inverse_gaussian(N = 100000, link = "1/mu^2", 
                                      weights = c(1, 2, 3), unrelated = 3)
-
-#Y looks like an inverse gaussian distribution. 
-ggplot(simdata, aes(x=Y)) +
-  geom_histogram(bins = 30)
 
 #Setting the simplest model and the most complex model.
 scopeArg <- list(
@@ -26,7 +21,7 @@ scopeArg <- list(
 
 #Run search
 startingModel <- glm(Y ~ 1, data = simdata, family = inverse.gaussian(link = "1/mu^2"))
-glmSearch <- stepAIC(startingModel, scopeArg)
+glmSearch <- stepAIC(startingModel, scopeArg, trace = 0)
 
 summary(glmSearch)
 
@@ -39,11 +34,6 @@ rm(simdata, scopeArg, glmSearch, startingModel)
 set.seed(2)
 simdata <- simulate_inverse_gaussian(N = 100000, link = "1/mu^2", 
                                      weights = c(1, 2, 3), unrelated = 20)
-
-#Y looks like an inverse gaussian distribution. 
-ggplot(simdata, aes(x=Y)) +
-  geom_histogram(bins = 30)
-
 #Setting the simplest model and the most complex model.
 scopeArg <- list(
   lower = Y ~ 1,
@@ -55,7 +45,7 @@ scopeArg <- list(
 
 #Run search
 startingModel <- glm(Y ~ 1, data = simdata, family = inverse.gaussian(link = "1/mu^2"))
-glmSearch <- stepAIC(startingModel, scopeArg)
+glmSearch <- stepAIC(startingModel, scopeArg, trace = 0)
 
 summary(glmSearch)
 
@@ -66,11 +56,6 @@ rm(simdata, scopeArg, glmSearch, startingModel)
 set.seed(3)
 simdata <- simulate_inverse_gaussian(N = 1000, link = "1/mu^2", 
                                      weights = c(1, 2, 3), unrelated = 3)
-
-#Y looks like an inverse gaussian distribution. 
-ggplot(simdata, aes(x=Y)) +
-  geom_histogram(bins = 30)
-
 #Setting the simplest model and the most complex model.
 scopeArg <- list(
   lower = Y ~ 1,
@@ -79,7 +64,7 @@ scopeArg <- list(
 
 #Run search
 startingModel <- glm(Y ~ 1, data = simdata, family = inverse.gaussian(link = "1/mu^2"))
-glmSearch <- stepAIC(startingModel, scopeArg)
+glmSearch <- stepAIC(startingModel, scopeArg, trace = 0)
 
 summary(glmSearch)
 
@@ -90,11 +75,6 @@ rm(simdata, scopeArg, glmSearch, startingModel)
 set.seed(4)
 simdata <- simulate_inverse_gaussian(N = 1000, link = "1/mu^2", 
                                      weights = c(1, 2, 3), unrelated = 20)
-
-#Y looks like an inverse gaussian distribution. 
-ggplot(simdata, aes(x=Y)) +
-  geom_histogram(bins = 30)
-
 #Setting the simplest model and the most complex model.
 scopeArg <- list(
   lower = Y ~ 1,
@@ -106,7 +86,7 @@ scopeArg <- list(
 
 #Run search
 startingModel <- glm(Y ~ 1, data = simdata, family = inverse.gaussian(link = "1/mu^2"))
-glmSearch <- stepAIC(startingModel, scopeArg)
+glmSearch <- stepAIC(startingModel, scopeArg, trace = 0)
 
 summary(glmSearch)
 

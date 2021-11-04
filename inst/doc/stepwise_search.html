@@ -14,30 +14,49 @@
 
 <title>Stepwise Search</title>
 
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -46,9 +65,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -105,187 +124,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<style type="text/css">body {
-background-color: #fff;
-margin: 1em auto;
-max-width: 700px;
-overflow: visible;
-padding-left: 2em;
-padding-right: 2em;
-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-size: 14px;
-line-height: 1.35;
-}
-#TOC {
-clear: both;
-margin: 0 0 10px 10px;
-padding: 4px;
-width: 400px;
-border: 1px solid #CCCCCC;
-border-radius: 5px;
-background-color: #f6f6f6;
-font-size: 13px;
-line-height: 1.3;
-}
-#TOC .toctitle {
-font-weight: bold;
-font-size: 15px;
-margin-left: 5px;
-}
-#TOC ul {
-padding-left: 40px;
-margin-left: -1.5em;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-#TOC ul ul {
-margin-left: -2em;
-}
-#TOC li {
-line-height: 16px;
-}
-table {
-margin: 1em auto;
-border-width: 1px;
-border-color: #DDDDDD;
-border-style: outset;
-border-collapse: collapse;
-}
-table th {
-border-width: 2px;
-padding: 5px;
-border-style: inset;
-}
-table td {
-border-width: 1px;
-border-style: inset;
-line-height: 18px;
-padding: 5px 5px;
-}
-table, table th, table td {
-border-left-style: none;
-border-right-style: none;
-}
-table thead, table tr.even {
-background-color: #f7f7f7;
-}
-p {
-margin: 0.5em 0;
-}
-blockquote {
-background-color: #f6f6f6;
-padding: 0.25em 0.75em;
-}
-hr {
-border-style: solid;
-border: none;
-border-top: 1px solid #777;
-margin: 28px 0;
-}
-dl {
-margin-left: 0;
-}
-dl dd {
-margin-bottom: 13px;
-margin-left: 13px;
-}
-dl dt {
-font-weight: bold;
-}
-ul {
-margin-top: 0;
-}
-ul li {
-list-style: circle outside;
-}
-ul ul {
-margin-bottom: 0;
-}
-pre, code {
-background-color: #f7f7f7;
-border-radius: 3px;
-color: #333;
-white-space: pre-wrap; 
-}
-pre {
-border-radius: 3px;
-margin: 5px 0px 10px 0px;
-padding: 10px;
-}
-pre:not([class]) {
-background-color: #f7f7f7;
-}
-code {
-font-family: Consolas, Monaco, 'Courier New', monospace;
-font-size: 85%;
-}
-p > code, li > code {
-padding: 2px 0px;
-}
-div.figure {
-text-align: center;
-}
-img {
-background-color: #FFFFFF;
-padding: 2px;
-border: 1px solid #DDDDDD;
-border-radius: 3px;
-border: 1px solid #CCCCCC;
-margin: 0 5px;
-}
-h1 {
-margin-top: 0;
-font-size: 35px;
-line-height: 40px;
-}
-h2 {
-border-bottom: 4px solid #f7f7f7;
-padding-top: 10px;
-padding-bottom: 2px;
-font-size: 145%;
-}
-h3 {
-border-bottom: 2px solid #f7f7f7;
-padding-top: 10px;
-font-size: 120%;
-}
-h4 {
-border-bottom: 1px solid #f7f7f7;
-margin-left: 8px;
-font-size: 105%;
-}
-h5, h6 {
-border-bottom: 1px solid #ccc;
-font-size: 105%;
-}
-a {
-color: #0033dd;
-text-decoration: none;
-}
-a:hover {
-color: #6666ff; }
-a:visited {
-color: #800080; }
-a:visited:hover {
-color: #BB00BB; }
-a[href^="http:"] {
-text-decoration: underline; }
-a[href^="https:"] {
-text-decoration: underline; }
 
-code > span.kw { color: #555; font-weight: bold; } 
-code > span.dt { color: #902000; } 
-code > span.dv { color: #40a070; } 
-code > span.bn { color: #d14; } 
-code > span.fl { color: #d14; } 
-code > span.ch { color: #d14; } 
-code > span.st { color: #d14; } 
-code > span.co { color: #888888; font-style: italic; } 
-code > span.ot { color: #007020; } 
-code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; } 
-code > span.er { color: #a61717; background-color: #e3d2d2; } 
-</style>
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -309,823 +149,217 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>After the first feature is selected, all remaining 9 features are considered. Of the 9 features, the one with the lowest AIC is selected, creating a 2 feature model. In this round, X3 was selected. <span class="math display">\[g(Y) = \beta_3X_3 + \beta_1X_1 + \beta_0\]</span></p>
 <p>When adding more features does not improve AIC, the procedure stops.</p>
 </div>
+<div id="simulation-setup" class="section level3">
+<h3>Simulation Setup</h3>
+<p>How well does stepwise search work when there are unrelated variables? Is a large amount of data needed to find the correct variables? The below tests stepwise search in a variety of settings to answer these questions.</p>
+</div>
 <div id="easy-problem-large-n-and-half-the-variables-are-unrelated" class="section level3">
-<h3>Easy Problem: Large N And Half The Variables Are Unrelated</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(GlmSimulatoR)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>(MASS)</a>
-<a class="sourceLine" id="cb1-4" title="4"></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#Creating data to work with</span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-7" title="7">simdata &lt;-<span class="st"> </span><span class="kw">simulate_inverse_gaussian</span>(<span class="dt">N =</span> <span class="dv">100000</span>, <span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </a>
-<a class="sourceLine" id="cb1-8" title="8">                                     <span class="dt">weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">unrelated =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb1-9" title="9"></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co">#Y looks like an inverse gaussian distribution. </span></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="kw">ggplot</span>(simdata, <span class="kw">aes</span>(<span class="dt">x=</span>Y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">#Setting the simplest model and the most complex model.</span></a>
-<a class="sourceLine" id="cb2-3" title="3">scopeArg &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">lower =</span> Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">upper =</span> Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3 <span class="op">+</span><span class="st"> </span>Unrelated1 <span class="op">+</span><span class="st"> </span>Unrelated2 <span class="op">+</span><span class="st"> </span>Unrelated3</a>
-<a class="sourceLine" id="cb2-6" title="6">)</a>
-<a class="sourceLine" id="cb2-7" title="7"></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#Run search</span></a>
-<a class="sourceLine" id="cb2-9" title="9">startingModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">inverse.gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</a>
-<a class="sourceLine" id="cb2-10" title="10">glmSearch &lt;-<span class="st"> </span><span class="kw">stepAIC</span>(startingModel, scopeArg)</a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; Start:  AIC=-209841.1</span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; Y ~ 1</span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; + X3          1    33538 -211199</span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; + X2          1    33789 -210467</span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; + X1          1    33952 -209991</span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; &lt;none&gt;             34005 -209841</span></a>
-<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; + Unrelated3  1    34005 -209839</span></a>
-<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; + Unrelated1  1    34005 -209839</span></a>
-<a class="sourceLine" id="cb2-21" title="21"><span class="co">#&gt; + Unrelated2  1    34005 -209839</span></a>
-<a class="sourceLine" id="cb2-22" title="22"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-23" title="23"><span class="co">#&gt; Step:  AIC=-211221</span></a>
-<a class="sourceLine" id="cb2-24" title="24"><span class="co">#&gt; Y ~ X3</span></a>
-<a class="sourceLine" id="cb2-25" title="25"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-26" title="26"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb2-27" title="27"><span class="co">#&gt; + X2          1    33324 -211853</span></a>
-<a class="sourceLine" id="cb2-28" title="28"><span class="co">#&gt; + X1          1    33485 -211375</span></a>
-<a class="sourceLine" id="cb2-29" title="29"><span class="co">#&gt; &lt;none&gt;             33538 -211221</span></a>
-<a class="sourceLine" id="cb2-30" title="30"><span class="co">#&gt; + Unrelated3  1    33538 -211219</span></a>
-<a class="sourceLine" id="cb2-31" title="31"><span class="co">#&gt; + Unrelated1  1    33538 -211219</span></a>
-<a class="sourceLine" id="cb2-32" title="32"><span class="co">#&gt; + Unrelated2  1    33538 -211219</span></a>
-<a class="sourceLine" id="cb2-33" title="33"><span class="co">#&gt; - X3          1    34005 -209839</span></a>
-<a class="sourceLine" id="cb2-34" title="34"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-35" title="35"><span class="co">#&gt; Step:  AIC=-211858.7</span></a>
-<a class="sourceLine" id="cb2-36" title="36"><span class="co">#&gt; Y ~ X3 + X2</span></a>
-<a class="sourceLine" id="cb2-37" title="37"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-38" title="38"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb2-39" title="39"><span class="co">#&gt; + X1          1    33270 -212018</span></a>
-<a class="sourceLine" id="cb2-40" title="40"><span class="co">#&gt; &lt;none&gt;             33324 -211859</span></a>
-<a class="sourceLine" id="cb2-41" title="41"><span class="co">#&gt; + Unrelated3  1    33324 -211857</span></a>
-<a class="sourceLine" id="cb2-42" title="42"><span class="co">#&gt; + Unrelated1  1    33324 -211857</span></a>
-<a class="sourceLine" id="cb2-43" title="43"><span class="co">#&gt; + Unrelated2  1    33324 -211857</span></a>
-<a class="sourceLine" id="cb2-44" title="44"><span class="co">#&gt; - X2          1    33538 -211221</span></a>
-<a class="sourceLine" id="cb2-45" title="45"><span class="co">#&gt; - X3          1    33789 -210469</span></a>
-<a class="sourceLine" id="cb2-46" title="46"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-47" title="47"><span class="co">#&gt; Step:  AIC=-212018.7</span></a>
-<a class="sourceLine" id="cb2-48" title="48"><span class="co">#&gt; Y ~ X3 + X2 + X1</span></a>
-<a class="sourceLine" id="cb2-49" title="49"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-50" title="50"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb2-51" title="51"><span class="co">#&gt; &lt;none&gt;             33270 -212019</span></a>
-<a class="sourceLine" id="cb2-52" title="52"><span class="co">#&gt; + Unrelated3  1    33270 -212017</span></a>
-<a class="sourceLine" id="cb2-53" title="53"><span class="co">#&gt; + Unrelated1  1    33270 -212017</span></a>
-<a class="sourceLine" id="cb2-54" title="54"><span class="co">#&gt; + Unrelated2  1    33270 -212017</span></a>
-<a class="sourceLine" id="cb2-55" title="55"><span class="co">#&gt; - X1          1    33324 -211859</span></a>
-<a class="sourceLine" id="cb2-56" title="56"><span class="co">#&gt; - X2          1    33485 -211376</span></a>
-<a class="sourceLine" id="cb2-57" title="57"><span class="co">#&gt; - X3          1    33736 -210625</span></a>
-<a class="sourceLine" id="cb2-58" title="58"></a>
-<a class="sourceLine" id="cb2-59" title="59"><span class="kw">summary</span>(glmSearch)</a>
-<a class="sourceLine" id="cb2-60" title="60"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-61" title="61"><span class="co">#&gt; Call:</span></a>
-<a class="sourceLine" id="cb2-62" title="62"><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + X1, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></a>
-<a class="sourceLine" id="cb2-63" title="63"><span class="co">#&gt;     data = simdata)</span></a>
-<a class="sourceLine" id="cb2-64" title="64"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-65" title="65"><span class="co">#&gt; Deviance Residuals: </span></a>
-<a class="sourceLine" id="cb2-66" title="66"><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></a>
-<a class="sourceLine" id="cb2-67" title="67"><span class="co">#&gt; -2.68546  -0.47420  -0.08869   0.29790   2.36148  </span></a>
-<a class="sourceLine" id="cb2-68" title="68"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-69" title="69"><span class="co">#&gt; Coefficients:</span></a>
-<a class="sourceLine" id="cb2-70" title="70"><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></a>
-<a class="sourceLine" id="cb2-71" title="71"><span class="co">#&gt; (Intercept)  2.81196    0.20842   13.49   &lt;2e-16 ***</span></a>
-<a class="sourceLine" id="cb2-72" title="72"><span class="co">#&gt; X3           3.03192    0.08116   37.36   &lt;2e-16 ***</span></a>
-<a class="sourceLine" id="cb2-73" title="73"><span class="co">#&gt; X2           2.05731    0.08100   25.40   &lt;2e-16 ***</span></a>
-<a class="sourceLine" id="cb2-74" title="74"><span class="co">#&gt; X1           1.02594    0.08066   12.72   &lt;2e-16 ***</span></a>
-<a class="sourceLine" id="cb2-75" title="75"><span class="co">#&gt; ---</span></a>
-<a class="sourceLine" id="cb2-76" title="76"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
-<a class="sourceLine" id="cb2-77" title="77"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-78" title="78"><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3335593)</span></a>
-<a class="sourceLine" id="cb2-79" title="79"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-80" title="80"><span class="co">#&gt;     Null deviance: 34005  on 99999  degrees of freedom</span></a>
-<a class="sourceLine" id="cb2-81" title="81"><span class="co">#&gt; Residual deviance: 33270  on 99996  degrees of freedom</span></a>
-<a class="sourceLine" id="cb2-82" title="82"><span class="co">#&gt; AIC: -212019</span></a>
-<a class="sourceLine" id="cb2-83" title="83"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-84" title="84"><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></a>
-<a class="sourceLine" id="cb2-85" title="85"></a>
-<a class="sourceLine" id="cb2-86" title="86"><span class="kw">rm</span>(simdata, scopeArg, glmSearch, startingModel)</a></code></pre></div>
+<h3>Easy Problem: Large N and half the variables are unrelated</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating data to work with</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_inverse_gaussian</span>(<span class="at">N =</span> <span class="dv">100000</span>, <span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">unrelated =</span> <span class="dv">3</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Setting the simplest model and the most complex model.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>scopeArg <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> Y <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3 <span class="sc">+</span> Unrelated1 <span class="sc">+</span> Unrelated2 <span class="sc">+</span> Unrelated3</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Run search</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>startingModel <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">inverse.gaussian</span>(<span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>glmSearch <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(startingModel, scopeArg, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmSearch)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + X1, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = simdata)</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deviance Residuals: </span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -2.68546  -0.47420  -0.08869   0.29790   2.36148  </span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  2.81196    0.20842   13.49   &lt;2e-16 ***</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X3           3.03192    0.08116   37.36   &lt;2e-16 ***</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X2           2.05731    0.08100   25.40   &lt;2e-16 ***</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X1           1.02594    0.08066   12.72   &lt;2e-16 ***</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3335593)</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Null deviance: 34005  on 99999  degrees of freedom</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual deviance: 33270  on 99996  degrees of freedom</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC: -212019</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(simdata, scopeArg, glmSearch, startingModel)</span></code></pre></div>
 <p>Looking at the summary, the correct model was found. Stepwise search worked perfectly!</p>
 </div>
 <div id="medium-problem-large-n-and-most-variables-are-unrelated" class="section level3">
-<h3>Medium Problem: Large N And Most Variables Are Unrelated</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">#Creating data to work with</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">set.seed</span>(<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb3-3" title="3">simdata &lt;-<span class="st"> </span><span class="kw">simulate_inverse_gaussian</span>(<span class="dt">N =</span> <span class="dv">100000</span>, <span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </a>
-<a class="sourceLine" id="cb3-4" title="4">                                     <span class="dt">weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">unrelated =</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#Y looks like an inverse gaussian distribution. </span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="kw">ggplot</span>(simdata, <span class="kw">aes</span>(<span class="dt">x=</span>Y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co">#Setting the simplest model and the most complex model.</span></a>
-<a class="sourceLine" id="cb4-3" title="3">scopeArg &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-4" title="4">  <span class="dt">lower =</span> Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb4-5" title="5">  <span class="dt">upper =</span> Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3 <span class="op">+</span><span class="st"> </span>Unrelated1 <span class="op">+</span><span class="st"> </span>Unrelated2 <span class="op">+</span><span class="st"> </span>Unrelated3 <span class="op">+</span><span class="st"> </span>Unrelated3 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="st">    </span>Unrelated4 <span class="op">+</span><span class="st"> </span>Unrelated5 <span class="op">+</span><span class="st"> </span>Unrelated6 <span class="op">+</span><span class="st"> </span>Unrelated7 <span class="op">+</span><span class="st"> </span>Unrelated8 <span class="op">+</span><span class="st"> </span>Unrelated9 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">    </span>Unrelated10 <span class="op">+</span><span class="st"> </span>Unrelated11 <span class="op">+</span><span class="st"> </span>Unrelated12 <span class="op">+</span><span class="st"> </span>Unrelated13 <span class="op">+</span><span class="st"> </span>Unrelated14 <span class="op">+</span><span class="st"> </span>Unrelated15 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="st">    </span>Unrelated16 <span class="op">+</span><span class="st"> </span>Unrelated17 <span class="op">+</span><span class="st"> </span>Unrelated18 <span class="op">+</span><span class="st"> </span>Unrelated19 <span class="op">+</span><span class="st"> </span>Unrelated20</a>
-<a class="sourceLine" id="cb4-9" title="9">)</a>
-<a class="sourceLine" id="cb4-10" title="10"></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">#Run search</span></a>
-<a class="sourceLine" id="cb4-12" title="12">startingModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">inverse.gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</a>
-<a class="sourceLine" id="cb4-13" title="13">glmSearch &lt;-<span class="st"> </span><span class="kw">stepAIC</span>(startingModel, scopeArg)</a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt; Start:  AIC=-210357.6</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt; Y ~ 1</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="co">#&gt; + X3           1    33547 -211700</span></a>
-<a class="sourceLine" id="cb4-19" title="19"><span class="co">#&gt; + X2           1    33814 -210918</span></a>
-<a class="sourceLine" id="cb4-20" title="20"><span class="co">#&gt; + X1           1    33952 -210514</span></a>
-<a class="sourceLine" id="cb4-21" title="21"><span class="co">#&gt; + Unrelated4   1    34004 -210362</span></a>
-<a class="sourceLine" id="cb4-22" title="22"><span class="co">#&gt; + Unrelated9   1    34005 -210359</span></a>
-<a class="sourceLine" id="cb4-23" title="23"><span class="co">#&gt; + Unrelated14  1    34005 -210358</span></a>
-<a class="sourceLine" id="cb4-24" title="24"><span class="co">#&gt; + Unrelated19  1    34005 -210358</span></a>
-<a class="sourceLine" id="cb4-25" title="25"><span class="co">#&gt; &lt;none&gt;              34006 -210358</span></a>
-<a class="sourceLine" id="cb4-26" title="26"><span class="co">#&gt; + Unrelated18  1    34006 -210357</span></a>
-<a class="sourceLine" id="cb4-27" title="27"><span class="co">#&gt; + Unrelated5   1    34006 -210357</span></a>
-<a class="sourceLine" id="cb4-28" title="28"><span class="co">#&gt; + Unrelated20  1    34006 -210357</span></a>
-<a class="sourceLine" id="cb4-29" title="29"><span class="co">#&gt; + Unrelated17  1    34006 -210357</span></a>
-<a class="sourceLine" id="cb4-30" title="30"><span class="co">#&gt; + Unrelated1   1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-31" title="31"><span class="co">#&gt; + Unrelated3   1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-32" title="32"><span class="co">#&gt; + Unrelated6   1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-33" title="33"><span class="co">#&gt; + Unrelated2   1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-34" title="34"><span class="co">#&gt; + Unrelated11  1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-35" title="35"><span class="co">#&gt; + Unrelated13  1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-36" title="36"><span class="co">#&gt; + Unrelated16  1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-37" title="37"><span class="co">#&gt; + Unrelated7   1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-38" title="38"><span class="co">#&gt; + Unrelated15  1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-39" title="39"><span class="co">#&gt; + Unrelated10  1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-40" title="40"><span class="co">#&gt; + Unrelated8   1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-41" title="41"><span class="co">#&gt; + Unrelated12  1    34006 -210356</span></a>
-<a class="sourceLine" id="cb4-42" title="42"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-43" title="43"><span class="co">#&gt; Step:  AIC=-211714.1</span></a>
-<a class="sourceLine" id="cb4-44" title="44"><span class="co">#&gt; Y ~ X3</span></a>
-<a class="sourceLine" id="cb4-45" title="45"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-46" title="46"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-47" title="47"><span class="co">#&gt; + X2           1    33354 -212290</span></a>
-<a class="sourceLine" id="cb4-48" title="48"><span class="co">#&gt; + X1           1    33493 -211874</span></a>
-<a class="sourceLine" id="cb4-49" title="49"><span class="co">#&gt; + Unrelated4   1    33545 -211719</span></a>
-<a class="sourceLine" id="cb4-50" title="50"><span class="co">#&gt; + Unrelated9   1    33546 -211715</span></a>
-<a class="sourceLine" id="cb4-51" title="51"><span class="co">#&gt; + Unrelated14  1    33546 -211715</span></a>
-<a class="sourceLine" id="cb4-52" title="52"><span class="co">#&gt; + Unrelated19  1    33546 -211715</span></a>
-<a class="sourceLine" id="cb4-53" title="53"><span class="co">#&gt; + Unrelated18  1    33546 -211714</span></a>
-<a class="sourceLine" id="cb4-54" title="54"><span class="co">#&gt; &lt;none&gt;              33547 -211714</span></a>
-<a class="sourceLine" id="cb4-55" title="55"><span class="co">#&gt; + Unrelated17  1    33547 -211713</span></a>
-<a class="sourceLine" id="cb4-56" title="56"><span class="co">#&gt; + Unrelated5   1    33547 -211713</span></a>
-<a class="sourceLine" id="cb4-57" title="57"><span class="co">#&gt; + Unrelated20  1    33547 -211713</span></a>
-<a class="sourceLine" id="cb4-58" title="58"><span class="co">#&gt; + Unrelated1   1    33547 -211713</span></a>
-<a class="sourceLine" id="cb4-59" title="59"><span class="co">#&gt; + Unrelated3   1    33547 -211713</span></a>
-<a class="sourceLine" id="cb4-60" title="60"><span class="co">#&gt; + Unrelated6   1    33547 -211713</span></a>
-<a class="sourceLine" id="cb4-61" title="61"><span class="co">#&gt; + Unrelated2   1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-62" title="62"><span class="co">#&gt; + Unrelated13  1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-63" title="63"><span class="co">#&gt; + Unrelated8   1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-64" title="64"><span class="co">#&gt; + Unrelated15  1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-65" title="65"><span class="co">#&gt; + Unrelated11  1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-66" title="66"><span class="co">#&gt; + Unrelated7   1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-67" title="67"><span class="co">#&gt; + Unrelated12  1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-68" title="68"><span class="co">#&gt; + Unrelated10  1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-69" title="69"><span class="co">#&gt; + Unrelated16  1    33547 -211712</span></a>
-<a class="sourceLine" id="cb4-70" title="70"><span class="co">#&gt; - X3           1    34006 -210347</span></a>
-<a class="sourceLine" id="cb4-71" title="71"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-72" title="72"><span class="co">#&gt; Step:  AIC=-212291.3</span></a>
-<a class="sourceLine" id="cb4-73" title="73"><span class="co">#&gt; Y ~ X3 + X2</span></a>
-<a class="sourceLine" id="cb4-74" title="74"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-75" title="75"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-76" title="76"><span class="co">#&gt; + X1           1    33300 -212451</span></a>
-<a class="sourceLine" id="cb4-77" title="77"><span class="co">#&gt; + Unrelated4   1    33351 -212296</span></a>
-<a class="sourceLine" id="cb4-78" title="78"><span class="co">#&gt; + Unrelated14  1    33353 -212292</span></a>
-<a class="sourceLine" id="cb4-79" title="79"><span class="co">#&gt; + Unrelated9   1    33353 -212292</span></a>
-<a class="sourceLine" id="cb4-80" title="80"><span class="co">#&gt; + Unrelated18  1    33353 -212292</span></a>
-<a class="sourceLine" id="cb4-81" title="81"><span class="co">#&gt; + Unrelated19  1    33353 -212292</span></a>
-<a class="sourceLine" id="cb4-82" title="82"><span class="co">#&gt; &lt;none&gt;              33354 -212291</span></a>
-<a class="sourceLine" id="cb4-83" title="83"><span class="co">#&gt; + Unrelated17  1    33353 -212290</span></a>
-<a class="sourceLine" id="cb4-84" title="84"><span class="co">#&gt; + Unrelated20  1    33353 -212290</span></a>
-<a class="sourceLine" id="cb4-85" title="85"><span class="co">#&gt; + Unrelated5   1    33353 -212290</span></a>
-<a class="sourceLine" id="cb4-86" title="86"><span class="co">#&gt; + Unrelated1   1    33353 -212290</span></a>
-<a class="sourceLine" id="cb4-87" title="87"><span class="co">#&gt; + Unrelated6   1    33353 -212290</span></a>
-<a class="sourceLine" id="cb4-88" title="88"><span class="co">#&gt; + Unrelated3   1    33353 -212290</span></a>
-<a class="sourceLine" id="cb4-89" title="89"><span class="co">#&gt; + Unrelated13  1    33353 -212289</span></a>
-<a class="sourceLine" id="cb4-90" title="90"><span class="co">#&gt; + Unrelated2   1    33353 -212289</span></a>
-<a class="sourceLine" id="cb4-91" title="91"><span class="co">#&gt; + Unrelated8   1    33354 -212289</span></a>
-<a class="sourceLine" id="cb4-92" title="92"><span class="co">#&gt; + Unrelated15  1    33354 -212289</span></a>
-<a class="sourceLine" id="cb4-93" title="93"><span class="co">#&gt; + Unrelated16  1    33354 -212289</span></a>
-<a class="sourceLine" id="cb4-94" title="94"><span class="co">#&gt; + Unrelated10  1    33354 -212289</span></a>
-<a class="sourceLine" id="cb4-95" title="95"><span class="co">#&gt; + Unrelated12  1    33354 -212289</span></a>
-<a class="sourceLine" id="cb4-96" title="96"><span class="co">#&gt; + Unrelated11  1    33354 -212289</span></a>
-<a class="sourceLine" id="cb4-97" title="97"><span class="co">#&gt; + Unrelated7   1    33354 -212289</span></a>
-<a class="sourceLine" id="cb4-98" title="98"><span class="co">#&gt; - X2           1    33547 -211711</span></a>
-<a class="sourceLine" id="cb4-99" title="99"><span class="co">#&gt; - X3           1    33814 -210908</span></a>
-<a class="sourceLine" id="cb4-100" title="100"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-101" title="101"><span class="co">#&gt; Step:  AIC=-212450.6</span></a>
-<a class="sourceLine" id="cb4-102" title="102"><span class="co">#&gt; Y ~ X3 + X2 + X1</span></a>
-<a class="sourceLine" id="cb4-103" title="103"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-104" title="104"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-105" title="105"><span class="co">#&gt; + Unrelated4   1    33297 -212456</span></a>
-<a class="sourceLine" id="cb4-106" title="106"><span class="co">#&gt; + Unrelated14  1    33299 -212451</span></a>
-<a class="sourceLine" id="cb4-107" title="107"><span class="co">#&gt; + Unrelated18  1    33299 -212451</span></a>
-<a class="sourceLine" id="cb4-108" title="108"><span class="co">#&gt; + Unrelated9   1    33299 -212451</span></a>
-<a class="sourceLine" id="cb4-109" title="109"><span class="co">#&gt; + Unrelated19  1    33299 -212451</span></a>
-<a class="sourceLine" id="cb4-110" title="110"><span class="co">#&gt; &lt;none&gt;              33300 -212451</span></a>
-<a class="sourceLine" id="cb4-111" title="111"><span class="co">#&gt; + Unrelated20  1    33299 -212450</span></a>
-<a class="sourceLine" id="cb4-112" title="112"><span class="co">#&gt; + Unrelated17  1    33299 -212450</span></a>
-<a class="sourceLine" id="cb4-113" title="113"><span class="co">#&gt; + Unrelated5   1    33299 -212450</span></a>
-<a class="sourceLine" id="cb4-114" title="114"><span class="co">#&gt; + Unrelated1   1    33299 -212449</span></a>
-<a class="sourceLine" id="cb4-115" title="115"><span class="co">#&gt; + Unrelated6   1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-116" title="116"><span class="co">#&gt; + Unrelated3   1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-117" title="117"><span class="co">#&gt; + Unrelated13  1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-118" title="118"><span class="co">#&gt; + Unrelated2   1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-119" title="119"><span class="co">#&gt; + Unrelated15  1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-120" title="120"><span class="co">#&gt; + Unrelated8   1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-121" title="121"><span class="co">#&gt; + Unrelated16  1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-122" title="122"><span class="co">#&gt; + Unrelated10  1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-123" title="123"><span class="co">#&gt; + Unrelated12  1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-124" title="124"><span class="co">#&gt; + Unrelated7   1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-125" title="125"><span class="co">#&gt; + Unrelated11  1    33300 -212449</span></a>
-<a class="sourceLine" id="cb4-126" title="126"><span class="co">#&gt; - X1           1    33354 -212291</span></a>
-<a class="sourceLine" id="cb4-127" title="127"><span class="co">#&gt; - X2           1    33493 -211871</span></a>
-<a class="sourceLine" id="cb4-128" title="128"><span class="co">#&gt; - X3           1    33761 -211064</span></a>
-<a class="sourceLine" id="cb4-129" title="129"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-130" title="130"><span class="co">#&gt; Step:  AIC=-212455.7</span></a>
-<a class="sourceLine" id="cb4-131" title="131"><span class="co">#&gt; Y ~ X3 + X2 + X1 + Unrelated4</span></a>
-<a class="sourceLine" id="cb4-132" title="132"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-133" title="133"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-134" title="134"><span class="co">#&gt; + Unrelated18  1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-135" title="135"><span class="co">#&gt; + Unrelated14  1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-136" title="136"><span class="co">#&gt; + Unrelated9   1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-137" title="137"><span class="co">#&gt; + Unrelated19  1    33296 -212456</span></a>
-<a class="sourceLine" id="cb4-138" title="138"><span class="co">#&gt; &lt;none&gt;              33297 -212456</span></a>
-<a class="sourceLine" id="cb4-139" title="139"><span class="co">#&gt; + Unrelated20  1    33297 -212455</span></a>
-<a class="sourceLine" id="cb4-140" title="140"><span class="co">#&gt; + Unrelated17  1    33297 -212455</span></a>
-<a class="sourceLine" id="cb4-141" title="141"><span class="co">#&gt; + Unrelated5   1    33297 -212455</span></a>
-<a class="sourceLine" id="cb4-142" title="142"><span class="co">#&gt; + Unrelated1   1    33297 -212455</span></a>
-<a class="sourceLine" id="cb4-143" title="143"><span class="co">#&gt; + Unrelated6   1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-144" title="144"><span class="co">#&gt; + Unrelated3   1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-145" title="145"><span class="co">#&gt; + Unrelated13  1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-146" title="146"><span class="co">#&gt; + Unrelated2   1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-147" title="147"><span class="co">#&gt; + Unrelated15  1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-148" title="148"><span class="co">#&gt; + Unrelated8   1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-149" title="149"><span class="co">#&gt; + Unrelated16  1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-150" title="150"><span class="co">#&gt; + Unrelated10  1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-151" title="151"><span class="co">#&gt; + Unrelated12  1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-152" title="152"><span class="co">#&gt; + Unrelated7   1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-153" title="153"><span class="co">#&gt; + Unrelated11  1    33297 -212454</span></a>
-<a class="sourceLine" id="cb4-154" title="154"><span class="co">#&gt; - Unrelated4   1    33300 -212451</span></a>
-<a class="sourceLine" id="cb4-155" title="155"><span class="co">#&gt; - X1           1    33351 -212295</span></a>
-<a class="sourceLine" id="cb4-156" title="156"><span class="co">#&gt; - X2           1    33490 -211876</span></a>
-<a class="sourceLine" id="cb4-157" title="157"><span class="co">#&gt; - X3           1    33758 -211069</span></a>
-<a class="sourceLine" id="cb4-158" title="158"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-159" title="159"><span class="co">#&gt; Step:  AIC=-212456.6</span></a>
-<a class="sourceLine" id="cb4-160" title="160"><span class="co">#&gt; Y ~ X3 + X2 + X1 + Unrelated4 + Unrelated18</span></a>
-<a class="sourceLine" id="cb4-161" title="161"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-162" title="162"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-163" title="163"><span class="co">#&gt; + Unrelated14  1    33295 -212457</span></a>
-<a class="sourceLine" id="cb4-164" title="164"><span class="co">#&gt; + Unrelated9   1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-165" title="165"><span class="co">#&gt; + Unrelated19  1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-166" title="166"><span class="co">#&gt; &lt;none&gt;              33296 -212457</span></a>
-<a class="sourceLine" id="cb4-167" title="167"><span class="co">#&gt; + Unrelated20  1    33296 -212456</span></a>
-<a class="sourceLine" id="cb4-168" title="168"><span class="co">#&gt; - Unrelated18  1    33297 -212456</span></a>
-<a class="sourceLine" id="cb4-169" title="169"><span class="co">#&gt; + Unrelated17  1    33296 -212456</span></a>
-<a class="sourceLine" id="cb4-170" title="170"><span class="co">#&gt; + Unrelated5   1    33296 -212456</span></a>
-<a class="sourceLine" id="cb4-171" title="171"><span class="co">#&gt; + Unrelated1   1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-172" title="172"><span class="co">#&gt; + Unrelated6   1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-173" title="173"><span class="co">#&gt; + Unrelated3   1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-174" title="174"><span class="co">#&gt; + Unrelated13  1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-175" title="175"><span class="co">#&gt; + Unrelated2   1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-176" title="176"><span class="co">#&gt; + Unrelated15  1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-177" title="177"><span class="co">#&gt; + Unrelated8   1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-178" title="178"><span class="co">#&gt; + Unrelated16  1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-179" title="179"><span class="co">#&gt; + Unrelated10  1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-180" title="180"><span class="co">#&gt; + Unrelated12  1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-181" title="181"><span class="co">#&gt; + Unrelated7   1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-182" title="182"><span class="co">#&gt; + Unrelated11  1    33296 -212455</span></a>
-<a class="sourceLine" id="cb4-183" title="183"><span class="co">#&gt; - Unrelated4   1    33299 -212451</span></a>
-<a class="sourceLine" id="cb4-184" title="184"><span class="co">#&gt; - X1           1    33350 -212296</span></a>
-<a class="sourceLine" id="cb4-185" title="185"><span class="co">#&gt; - X2           1    33490 -211876</span></a>
-<a class="sourceLine" id="cb4-186" title="186"><span class="co">#&gt; - X3           1    33757 -211069</span></a>
-<a class="sourceLine" id="cb4-187" title="187"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-188" title="188"><span class="co">#&gt; Step:  AIC=-212457.4</span></a>
-<a class="sourceLine" id="cb4-189" title="189"><span class="co">#&gt; Y ~ X3 + X2 + X1 + Unrelated4 + Unrelated18 + Unrelated14</span></a>
-<a class="sourceLine" id="cb4-190" title="190"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-191" title="191"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-192" title="192"><span class="co">#&gt; + Unrelated9   1    33295 -212458</span></a>
-<a class="sourceLine" id="cb4-193" title="193"><span class="co">#&gt; + Unrelated19  1    33295 -212458</span></a>
-<a class="sourceLine" id="cb4-194" title="194"><span class="co">#&gt; &lt;none&gt;              33295 -212457</span></a>
-<a class="sourceLine" id="cb4-195" title="195"><span class="co">#&gt; - Unrelated14  1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-196" title="196"><span class="co">#&gt; - Unrelated18  1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-197" title="197"><span class="co">#&gt; + Unrelated20  1    33295 -212457</span></a>
-<a class="sourceLine" id="cb4-198" title="198"><span class="co">#&gt; + Unrelated17  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-199" title="199"><span class="co">#&gt; + Unrelated5   1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-200" title="200"><span class="co">#&gt; + Unrelated1   1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-201" title="201"><span class="co">#&gt; + Unrelated6   1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-202" title="202"><span class="co">#&gt; + Unrelated3   1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-203" title="203"><span class="co">#&gt; + Unrelated13  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-204" title="204"><span class="co">#&gt; + Unrelated2   1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-205" title="205"><span class="co">#&gt; + Unrelated15  1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-206" title="206"><span class="co">#&gt; + Unrelated8   1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-207" title="207"><span class="co">#&gt; + Unrelated16  1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-208" title="208"><span class="co">#&gt; + Unrelated10  1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-209" title="209"><span class="co">#&gt; + Unrelated12  1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-210" title="210"><span class="co">#&gt; + Unrelated7   1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-211" title="211"><span class="co">#&gt; + Unrelated11  1    33295 -212455</span></a>
-<a class="sourceLine" id="cb4-212" title="212"><span class="co">#&gt; - Unrelated4   1    33298 -212452</span></a>
-<a class="sourceLine" id="cb4-213" title="213"><span class="co">#&gt; - X1           1    33350 -212296</span></a>
-<a class="sourceLine" id="cb4-214" title="214"><span class="co">#&gt; - X2           1    33489 -211877</span></a>
-<a class="sourceLine" id="cb4-215" title="215"><span class="co">#&gt; - X3           1    33756 -211070</span></a>
-<a class="sourceLine" id="cb4-216" title="216"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-217" title="217"><span class="co">#&gt; Step:  AIC=-212458.2</span></a>
-<a class="sourceLine" id="cb4-218" title="218"><span class="co">#&gt; Y ~ X3 + X2 + X1 + Unrelated4 + Unrelated18 + Unrelated14 + Unrelated9</span></a>
-<a class="sourceLine" id="cb4-219" title="219"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-220" title="220"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-221" title="221"><span class="co">#&gt; + Unrelated19  1    33294 -212459</span></a>
-<a class="sourceLine" id="cb4-222" title="222"><span class="co">#&gt; &lt;none&gt;              33295 -212458</span></a>
-<a class="sourceLine" id="cb4-223" title="223"><span class="co">#&gt; - Unrelated9   1    33295 -212457</span></a>
-<a class="sourceLine" id="cb4-224" title="224"><span class="co">#&gt; - Unrelated18  1    33295 -212457</span></a>
-<a class="sourceLine" id="cb4-225" title="225"><span class="co">#&gt; - Unrelated14  1    33296 -212457</span></a>
-<a class="sourceLine" id="cb4-226" title="226"><span class="co">#&gt; + Unrelated20  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-227" title="227"><span class="co">#&gt; + Unrelated17  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-228" title="228"><span class="co">#&gt; + Unrelated5   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-229" title="229"><span class="co">#&gt; + Unrelated1   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-230" title="230"><span class="co">#&gt; + Unrelated6   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-231" title="231"><span class="co">#&gt; + Unrelated3   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-232" title="232"><span class="co">#&gt; + Unrelated13  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-233" title="233"><span class="co">#&gt; + Unrelated2   1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-234" title="234"><span class="co">#&gt; + Unrelated15  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-235" title="235"><span class="co">#&gt; + Unrelated8   1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-236" title="236"><span class="co">#&gt; + Unrelated16  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-237" title="237"><span class="co">#&gt; + Unrelated10  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-238" title="238"><span class="co">#&gt; + Unrelated12  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-239" title="239"><span class="co">#&gt; + Unrelated7   1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-240" title="240"><span class="co">#&gt; + Unrelated11  1    33295 -212456</span></a>
-<a class="sourceLine" id="cb4-241" title="241"><span class="co">#&gt; - Unrelated4   1    33297 -212453</span></a>
-<a class="sourceLine" id="cb4-242" title="242"><span class="co">#&gt; - X1           1    33349 -212297</span></a>
-<a class="sourceLine" id="cb4-243" title="243"><span class="co">#&gt; - X2           1    33488 -211878</span></a>
-<a class="sourceLine" id="cb4-244" title="244"><span class="co">#&gt; - X3           1    33755 -211071</span></a>
-<a class="sourceLine" id="cb4-245" title="245"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-246" title="246"><span class="co">#&gt; Step:  AIC=-212458.9</span></a>
-<a class="sourceLine" id="cb4-247" title="247"><span class="co">#&gt; Y ~ X3 + X2 + X1 + Unrelated4 + Unrelated18 + Unrelated14 + Unrelated9 + </span></a>
-<a class="sourceLine" id="cb4-248" title="248"><span class="co">#&gt;     Unrelated19</span></a>
-<a class="sourceLine" id="cb4-249" title="249"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-250" title="250"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb4-251" title="251"><span class="co">#&gt; &lt;none&gt;              33294 -212459</span></a>
-<a class="sourceLine" id="cb4-252" title="252"><span class="co">#&gt; - Unrelated19  1    33295 -212458</span></a>
-<a class="sourceLine" id="cb4-253" title="253"><span class="co">#&gt; - Unrelated9   1    33295 -212458</span></a>
-<a class="sourceLine" id="cb4-254" title="254"><span class="co">#&gt; - Unrelated18  1    33295 -212458</span></a>
-<a class="sourceLine" id="cb4-255" title="255"><span class="co">#&gt; - Unrelated14  1    33295 -212458</span></a>
-<a class="sourceLine" id="cb4-256" title="256"><span class="co">#&gt; + Unrelated20  1    33293 -212458</span></a>
-<a class="sourceLine" id="cb4-257" title="257"><span class="co">#&gt; + Unrelated17  1    33293 -212458</span></a>
-<a class="sourceLine" id="cb4-258" title="258"><span class="co">#&gt; + Unrelated5   1    33293 -212458</span></a>
-<a class="sourceLine" id="cb4-259" title="259"><span class="co">#&gt; + Unrelated1   1    33293 -212458</span></a>
-<a class="sourceLine" id="cb4-260" title="260"><span class="co">#&gt; + Unrelated6   1    33293 -212457</span></a>
-<a class="sourceLine" id="cb4-261" title="261"><span class="co">#&gt; + Unrelated3   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-262" title="262"><span class="co">#&gt; + Unrelated13  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-263" title="263"><span class="co">#&gt; + Unrelated2   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-264" title="264"><span class="co">#&gt; + Unrelated15  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-265" title="265"><span class="co">#&gt; + Unrelated8   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-266" title="266"><span class="co">#&gt; + Unrelated16  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-267" title="267"><span class="co">#&gt; + Unrelated10  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-268" title="268"><span class="co">#&gt; + Unrelated12  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-269" title="269"><span class="co">#&gt; + Unrelated7   1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-270" title="270"><span class="co">#&gt; + Unrelated11  1    33294 -212457</span></a>
-<a class="sourceLine" id="cb4-271" title="271"><span class="co">#&gt; - Unrelated4   1    33296 -212454</span></a>
-<a class="sourceLine" id="cb4-272" title="272"><span class="co">#&gt; - X1           1    33348 -212298</span></a>
-<a class="sourceLine" id="cb4-273" title="273"><span class="co">#&gt; - X2           1    33487 -211879</span></a>
-<a class="sourceLine" id="cb4-274" title="274"><span class="co">#&gt; - X3           1    33755 -211072</span></a>
-<a class="sourceLine" id="cb4-275" title="275"></a>
-<a class="sourceLine" id="cb4-276" title="276"><span class="kw">summary</span>(glmSearch)</a>
-<a class="sourceLine" id="cb4-277" title="277"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-278" title="278"><span class="co">#&gt; Call:</span></a>
-<a class="sourceLine" id="cb4-279" title="279"><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + X1 + Unrelated4 + Unrelated18 + Unrelated14 + </span></a>
-<a class="sourceLine" id="cb4-280" title="280"><span class="co">#&gt;     Unrelated9 + Unrelated19, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></a>
-<a class="sourceLine" id="cb4-281" title="281"><span class="co">#&gt;     data = simdata)</span></a>
-<a class="sourceLine" id="cb4-282" title="282"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-283" title="283"><span class="co">#&gt; Deviance Residuals: </span></a>
-<a class="sourceLine" id="cb4-284" title="284"><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></a>
-<a class="sourceLine" id="cb4-285" title="285"><span class="co">#&gt; -2.58072  -0.46825  -0.08547   0.29830   2.38608  </span></a>
-<a class="sourceLine" id="cb4-286" title="286"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-287" title="287"><span class="co">#&gt; Coefficients:</span></a>
-<a class="sourceLine" id="cb4-288" title="288"><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></a>
-<a class="sourceLine" id="cb4-289" title="289"><span class="co">#&gt; (Intercept)  3.09440    0.34079   9.080  &lt; 2e-16 ***</span></a>
-<a class="sourceLine" id="cb4-290" title="290"><span class="co">#&gt; X3           3.02170    0.08106  37.276  &lt; 2e-16 ***</span></a>
-<a class="sourceLine" id="cb4-291" title="291"><span class="co">#&gt; X2           1.95173    0.08091  24.121  &lt; 2e-16 ***</span></a>
-<a class="sourceLine" id="cb4-292" title="292"><span class="co">#&gt; X1           1.03102    0.08070  12.776  &lt; 2e-16 ***</span></a>
-<a class="sourceLine" id="cb4-293" title="293"><span class="co">#&gt; Unrelated4   0.21602    0.08082   2.673  0.00752 ** </span></a>
-<a class="sourceLine" id="cb4-294" title="294"><span class="co">#&gt; Unrelated18 -0.13564    0.08087  -1.677  0.09347 .  </span></a>
-<a class="sourceLine" id="cb4-295" title="295"><span class="co">#&gt; Unrelated14  0.13661    0.08080   1.691  0.09092 .  </span></a>
-<a class="sourceLine" id="cb4-296" title="296"><span class="co">#&gt; Unrelated9  -0.13462    0.08079  -1.666  0.09567 .  </span></a>
-<a class="sourceLine" id="cb4-297" title="297"><span class="co">#&gt; Unrelated19 -0.13306    0.08085  -1.646  0.09982 .  </span></a>
-<a class="sourceLine" id="cb4-298" title="298"><span class="co">#&gt; ---</span></a>
-<a class="sourceLine" id="cb4-299" title="299"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
-<a class="sourceLine" id="cb4-300" title="300"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-301" title="301"><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3318067)</span></a>
-<a class="sourceLine" id="cb4-302" title="302"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-303" title="303"><span class="co">#&gt;     Null deviance: 34006  on 99999  degrees of freedom</span></a>
-<a class="sourceLine" id="cb4-304" title="304"><span class="co">#&gt; Residual deviance: 33294  on 99991  degrees of freedom</span></a>
-<a class="sourceLine" id="cb4-305" title="305"><span class="co">#&gt; AIC: -212459</span></a>
-<a class="sourceLine" id="cb4-306" title="306"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-307" title="307"><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></a>
-<a class="sourceLine" id="cb4-308" title="308"></a>
-<a class="sourceLine" id="cb4-309" title="309"><span class="kw">rm</span>(simdata, scopeArg, glmSearch, startingModel)</a></code></pre></div>
+<h3>Medium Problem: Large N and most variables are unrelated</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating data to work with</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_inverse_gaussian</span>(<span class="at">N =</span> <span class="dv">100000</span>, <span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">unrelated =</span> <span class="dv">20</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Setting the simplest model and the most complex model.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>scopeArg <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> Y <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3 <span class="sc">+</span> Unrelated1 <span class="sc">+</span> Unrelated2 <span class="sc">+</span> Unrelated3 <span class="sc">+</span> Unrelated3 <span class="sc">+</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    Unrelated4 <span class="sc">+</span> Unrelated5 <span class="sc">+</span> Unrelated6 <span class="sc">+</span> Unrelated7 <span class="sc">+</span> Unrelated8 <span class="sc">+</span> Unrelated9 <span class="sc">+</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    Unrelated10 <span class="sc">+</span> Unrelated11 <span class="sc">+</span> Unrelated12 <span class="sc">+</span> Unrelated13 <span class="sc">+</span> Unrelated14 <span class="sc">+</span> Unrelated15 <span class="sc">+</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    Unrelated16 <span class="sc">+</span> Unrelated17 <span class="sc">+</span> Unrelated18 <span class="sc">+</span> Unrelated19 <span class="sc">+</span> Unrelated20</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Run search</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>startingModel <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">inverse.gaussian</span>(<span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>glmSearch <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(startingModel, scopeArg, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmSearch)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + X1 + Unrelated4 + Unrelated18 + Unrelated14 + </span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Unrelated9 + Unrelated19, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = simdata)</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deviance Residuals: </span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -2.58072  -0.46825  -0.08547   0.29830   2.38608  </span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  3.09440    0.34079   9.080  &lt; 2e-16 ***</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X3           3.02170    0.08106  37.276  &lt; 2e-16 ***</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X2           1.95173    0.08091  24.121  &lt; 2e-16 ***</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X1           1.03102    0.08070  12.776  &lt; 2e-16 ***</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated4   0.21602    0.08082   2.673  0.00752 ** </span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated18 -0.13564    0.08087  -1.677  0.09347 .  </span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated14  0.13661    0.08080   1.691  0.09092 .  </span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated9  -0.13462    0.08079  -1.666  0.09567 .  </span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated19 -0.13306    0.08085  -1.646  0.09982 .  </span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3318067)</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Null deviance: 34006  on 99999  degrees of freedom</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual deviance: 33294  on 99991  degrees of freedom</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC: -212459</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(simdata, scopeArg, glmSearch, startingModel)</span></code></pre></div>
 <p>Some unrelated variables made it into the final model. At least all related features are in the model.</p>
 </div>
 <div id="hard-problem-small-n-and-half-the-variables-are-unrelated" class="section level3">
-<h3>Hard Problem: Small N And Half The Variables Are Unrelated</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co">#Creating data to work with</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb5-3" title="3">simdata &lt;-<span class="st"> </span><span class="kw">simulate_inverse_gaussian</span>(<span class="dt">N =</span> <span class="dv">1000</span>, <span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </a>
-<a class="sourceLine" id="cb5-4" title="4">                                     <span class="dt">weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">unrelated =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb5-5" title="5"></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">#Y looks like an inverse gaussian distribution. </span></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="kw">ggplot</span>(simdata, <span class="kw">aes</span>(<span class="dt">x=</span>Y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="co">#Setting the simplest model and the most complex model.</span></a>
-<a class="sourceLine" id="cb6-3" title="3">scopeArg &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb6-4" title="4">  <span class="dt">lower =</span> Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb6-5" title="5">  <span class="dt">upper =</span> Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3 <span class="op">+</span><span class="st"> </span>Unrelated1 <span class="op">+</span><span class="st"> </span>Unrelated2 <span class="op">+</span><span class="st"> </span>Unrelated3</a>
-<a class="sourceLine" id="cb6-6" title="6">)</a>
-<a class="sourceLine" id="cb6-7" title="7"></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="co">#Run search</span></a>
-<a class="sourceLine" id="cb6-9" title="9">startingModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">inverse.gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</a>
-<a class="sourceLine" id="cb6-10" title="10">glmSearch &lt;-<span class="st"> </span><span class="kw">stepAIC</span>(startingModel, scopeArg)</a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; Start:  AIC=-2091.96</span></a>
-<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; Y ~ 1</span></a>
-<a class="sourceLine" id="cb6-13" title="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-14" title="14"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb6-15" title="15"><span class="co">#&gt; + X3          1   344.33 -2100.3</span></a>
-<a class="sourceLine" id="cb6-16" title="16"><span class="co">#&gt; + X2          1   346.38 -2094.5</span></a>
-<a class="sourceLine" id="cb6-17" title="17"><span class="co">#&gt; + X1          1   347.04 -2092.7</span></a>
-<a class="sourceLine" id="cb6-18" title="18"><span class="co">#&gt; &lt;none&gt;            348.02 -2092.0</span></a>
-<a class="sourceLine" id="cb6-19" title="19"><span class="co">#&gt; + Unrelated1  1   347.44 -2091.6</span></a>
-<a class="sourceLine" id="cb6-20" title="20"><span class="co">#&gt; + Unrelated3  1   347.83 -2090.5</span></a>
-<a class="sourceLine" id="cb6-21" title="21"><span class="co">#&gt; + Unrelated2  1   348.01 -2090.0</span></a>
-<a class="sourceLine" id="cb6-22" title="22"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-23" title="23"><span class="co">#&gt; Step:  AIC=-2100.61</span></a>
-<a class="sourceLine" id="cb6-24" title="24"><span class="co">#&gt; Y ~ X3</span></a>
-<a class="sourceLine" id="cb6-25" title="25"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-26" title="26"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb6-27" title="27"><span class="co">#&gt; + X2          1   342.74 -2103.2</span></a>
-<a class="sourceLine" id="cb6-28" title="28"><span class="co">#&gt; + X1          1   343.26 -2101.7</span></a>
-<a class="sourceLine" id="cb6-29" title="29"><span class="co">#&gt; &lt;none&gt;            344.33 -2100.6</span></a>
-<a class="sourceLine" id="cb6-30" title="30"><span class="co">#&gt; + Unrelated1  1   343.76 -2100.2</span></a>
-<a class="sourceLine" id="cb6-31" title="31"><span class="co">#&gt; + Unrelated3  1   344.21 -2099.0</span></a>
-<a class="sourceLine" id="cb6-32" title="32"><span class="co">#&gt; + Unrelated2  1   344.31 -2098.7</span></a>
-<a class="sourceLine" id="cb6-33" title="33"><span class="co">#&gt; - X3          1   348.02 -2092.1</span></a>
-<a class="sourceLine" id="cb6-34" title="34"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-35" title="35"><span class="co">#&gt; Step:  AIC=-2103.26</span></a>
-<a class="sourceLine" id="cb6-36" title="36"><span class="co">#&gt; Y ~ X3 + X2</span></a>
-<a class="sourceLine" id="cb6-37" title="37"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-38" title="38"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb6-39" title="39"><span class="co">#&gt; + X1          1   341.58 -2104.6</span></a>
-<a class="sourceLine" id="cb6-40" title="40"><span class="co">#&gt; &lt;none&gt;            342.74 -2103.3</span></a>
-<a class="sourceLine" id="cb6-41" title="41"><span class="co">#&gt; + Unrelated1  1   342.20 -2102.8</span></a>
-<a class="sourceLine" id="cb6-42" title="42"><span class="co">#&gt; + Unrelated3  1   342.65 -2101.5</span></a>
-<a class="sourceLine" id="cb6-43" title="43"><span class="co">#&gt; + Unrelated2  1   342.71 -2101.3</span></a>
-<a class="sourceLine" id="cb6-44" title="44"><span class="co">#&gt; - X2          1   344.33 -2100.7</span></a>
-<a class="sourceLine" id="cb6-45" title="45"><span class="co">#&gt; - X3          1   346.38 -2094.8</span></a>
-<a class="sourceLine" id="cb6-46" title="46"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-47" title="47"><span class="co">#&gt; Step:  AIC=-2104.65</span></a>
-<a class="sourceLine" id="cb6-48" title="48"><span class="co">#&gt; Y ~ X3 + X2 + X1</span></a>
-<a class="sourceLine" id="cb6-49" title="49"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-50" title="50"><span class="co">#&gt;              Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb6-51" title="51"><span class="co">#&gt; &lt;none&gt;            341.58 -2104.7</span></a>
-<a class="sourceLine" id="cb6-52" title="52"><span class="co">#&gt; + Unrelated1  1   341.04 -2104.2</span></a>
-<a class="sourceLine" id="cb6-53" title="53"><span class="co">#&gt; - X1          1   342.74 -2103.3</span></a>
-<a class="sourceLine" id="cb6-54" title="54"><span class="co">#&gt; + Unrelated3  1   341.44 -2103.0</span></a>
-<a class="sourceLine" id="cb6-55" title="55"><span class="co">#&gt; + Unrelated2  1   341.55 -2102.7</span></a>
-<a class="sourceLine" id="cb6-56" title="56"><span class="co">#&gt; - X2          1   343.26 -2101.8</span></a>
-<a class="sourceLine" id="cb6-57" title="57"><span class="co">#&gt; - X3          1   345.32 -2095.8</span></a>
-<a class="sourceLine" id="cb6-58" title="58"></a>
-<a class="sourceLine" id="cb6-59" title="59"><span class="kw">summary</span>(glmSearch)</a>
-<a class="sourceLine" id="cb6-60" title="60"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-61" title="61"><span class="co">#&gt; Call:</span></a>
-<a class="sourceLine" id="cb6-62" title="62"><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + X1, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></a>
-<a class="sourceLine" id="cb6-63" title="63"><span class="co">#&gt;     data = simdata)</span></a>
-<a class="sourceLine" id="cb6-64" title="64"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-65" title="65"><span class="co">#&gt; Deviance Residuals: </span></a>
-<a class="sourceLine" id="cb6-66" title="66"><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></a>
-<a class="sourceLine" id="cb6-67" title="67"><span class="co">#&gt; -1.75902  -0.49421  -0.08637   0.30463   1.85664  </span></a>
-<a class="sourceLine" id="cb6-68" title="68"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-69" title="69"><span class="co">#&gt; Coefficients:</span></a>
-<a class="sourceLine" id="cb6-70" title="70"><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></a>
-<a class="sourceLine" id="cb6-71" title="71"><span class="co">#&gt; (Intercept)   2.8867     2.1940   1.316  0.18857   </span></a>
-<a class="sourceLine" id="cb6-72" title="72"><span class="co">#&gt; X3            2.7355     0.8309   3.292  0.00103 **</span></a>
-<a class="sourceLine" id="cb6-73" title="73"><span class="co">#&gt; X2            1.8694     0.8490   2.202  0.02791 * </span></a>
-<a class="sourceLine" id="cb6-74" title="74"><span class="co">#&gt; X1            1.5190     0.8304   1.829  0.06766 . </span></a>
-<a class="sourceLine" id="cb6-75" title="75"><span class="co">#&gt; ---</span></a>
-<a class="sourceLine" id="cb6-76" title="76"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
-<a class="sourceLine" id="cb6-77" title="77"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-78" title="78"><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3466137)</span></a>
-<a class="sourceLine" id="cb6-79" title="79"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-80" title="80"><span class="co">#&gt;     Null deviance: 348.02  on 999  degrees of freedom</span></a>
-<a class="sourceLine" id="cb6-81" title="81"><span class="co">#&gt; Residual deviance: 341.58  on 996  degrees of freedom</span></a>
-<a class="sourceLine" id="cb6-82" title="82"><span class="co">#&gt; AIC: -2104.6</span></a>
-<a class="sourceLine" id="cb6-83" title="83"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-84" title="84"><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></a>
-<a class="sourceLine" id="cb6-85" title="85"></a>
-<a class="sourceLine" id="cb6-86" title="86"><span class="kw">rm</span>(simdata, scopeArg, glmSearch, startingModel)</a></code></pre></div>
+<h3>Hard Problem: Small N and half the variables are unrelated</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating data to work with</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_inverse_gaussian</span>(<span class="at">N =</span> <span class="dv">1000</span>, <span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">unrelated =</span> <span class="dv">3</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Setting the simplest model and the most complex model.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>scopeArg <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> Y <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3 <span class="sc">+</span> Unrelated1 <span class="sc">+</span> Unrelated2 <span class="sc">+</span> Unrelated3</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Run search</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>startingModel <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">inverse.gaussian</span>(<span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>glmSearch <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(startingModel, scopeArg, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmSearch)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + X1, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = simdata)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deviance Residuals: </span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -1.75902  -0.49421  -0.08637   0.30463   1.85664  </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   2.8867     2.1940   1.316  0.18857   </span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X3            2.7355     0.8309   3.292  0.00103 **</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X2            1.8694     0.8490   2.202  0.02791 * </span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X1            1.5190     0.8304   1.829  0.06766 . </span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3466137)</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Null deviance: 348.02  on 999  degrees of freedom</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual deviance: 341.58  on 996  degrees of freedom</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC: -2104.6</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(simdata, scopeArg, glmSearch, startingModel)</span></code></pre></div>
 <p>The correct model was found. Again, stepwise search worked perfectly!</p>
 </div>
 <div id="very-hard-problem-small-n-and-most-variables-are-unrelated" class="section level3">
-<h3>Very Hard Problem: Small N And Most Variables Are Unrelated</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co">#Creating data to work with</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="kw">set.seed</span>(<span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb7-3" title="3">simdata &lt;-<span class="st"> </span><span class="kw">simulate_inverse_gaussian</span>(<span class="dt">N =</span> <span class="dv">1000</span>, <span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </a>
-<a class="sourceLine" id="cb7-4" title="4">                                     <span class="dt">weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">unrelated =</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb7-5" title="5"></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="co">#Y looks like an inverse gaussian distribution. </span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="kw">ggplot</span>(simdata, <span class="kw">aes</span>(<span class="dt">x=</span>Y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="co">#Setting the simplest model and the most complex model.</span></a>
-<a class="sourceLine" id="cb8-3" title="3">scopeArg &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb8-4" title="4">  <span class="dt">lower =</span> Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb8-5" title="5">  <span class="dt">upper =</span> Y <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3 <span class="op">+</span><span class="st"> </span>Unrelated1 <span class="op">+</span><span class="st"> </span>Unrelated2 <span class="op">+</span><span class="st"> </span>Unrelated3 <span class="op">+</span><span class="st"> </span>Unrelated3 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="st">    </span>Unrelated4 <span class="op">+</span><span class="st"> </span>Unrelated5 <span class="op">+</span><span class="st"> </span>Unrelated6 <span class="op">+</span><span class="st"> </span>Unrelated7 <span class="op">+</span><span class="st"> </span>Unrelated8 <span class="op">+</span><span class="st"> </span>Unrelated9 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-7" title="7"><span class="st">    </span>Unrelated10 <span class="op">+</span><span class="st"> </span>Unrelated11 <span class="op">+</span><span class="st"> </span>Unrelated12 <span class="op">+</span><span class="st"> </span>Unrelated13 <span class="op">+</span><span class="st"> </span>Unrelated14 <span class="op">+</span><span class="st"> </span>Unrelated15 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="st">    </span>Unrelated16 <span class="op">+</span><span class="st"> </span>Unrelated17 <span class="op">+</span><span class="st"> </span>Unrelated18 <span class="op">+</span><span class="st"> </span>Unrelated19 <span class="op">+</span><span class="st"> </span>Unrelated20</a>
-<a class="sourceLine" id="cb8-9" title="9">)</a>
-<a class="sourceLine" id="cb8-10" title="10"></a>
-<a class="sourceLine" id="cb8-11" title="11"><span class="co">#Run search</span></a>
-<a class="sourceLine" id="cb8-12" title="12">startingModel &lt;-<span class="st"> </span><span class="kw">glm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> simdata, <span class="dt">family =</span> <span class="kw">inverse.gaussian</span>(<span class="dt">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</a>
-<a class="sourceLine" id="cb8-13" title="13">glmSearch &lt;-<span class="st"> </span><span class="kw">stepAIC</span>(startingModel, scopeArg)</a>
-<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt; Start:  AIC=-2125.97</span></a>
-<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt; Y ~ 1</span></a>
-<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-18" title="18"><span class="co">#&gt; + X3           1   340.67 -2136.3</span></a>
-<a class="sourceLine" id="cb8-19" title="19"><span class="co">#&gt; + X2           1   343.78 -2127.5</span></a>
-<a class="sourceLine" id="cb8-20" title="20"><span class="co">#&gt; + X1           1   343.83 -2127.4</span></a>
-<a class="sourceLine" id="cb8-21" title="21"><span class="co">#&gt; + Unrelated8   1   343.85 -2127.3</span></a>
-<a class="sourceLine" id="cb8-22" title="22"><span class="co">#&gt; + Unrelated20  1   344.18 -2126.4</span></a>
-<a class="sourceLine" id="cb8-23" title="23"><span class="co">#&gt; + Unrelated15  1   344.29 -2126.1</span></a>
-<a class="sourceLine" id="cb8-24" title="24"><span class="co">#&gt; + Unrelated19  1   344.29 -2126.1</span></a>
-<a class="sourceLine" id="cb8-25" title="25"><span class="co">#&gt; &lt;none&gt;             345.03 -2126.0</span></a>
-<a class="sourceLine" id="cb8-26" title="26"><span class="co">#&gt; + Unrelated7   1   344.55 -2125.3</span></a>
-<a class="sourceLine" id="cb8-27" title="27"><span class="co">#&gt; + Unrelated11  1   344.71 -2124.9</span></a>
-<a class="sourceLine" id="cb8-28" title="28"><span class="co">#&gt; + Unrelated6   1   344.78 -2124.7</span></a>
-<a class="sourceLine" id="cb8-29" title="29"><span class="co">#&gt; + Unrelated4   1   344.79 -2124.7</span></a>
-<a class="sourceLine" id="cb8-30" title="30"><span class="co">#&gt; + Unrelated1   1   344.80 -2124.6</span></a>
-<a class="sourceLine" id="cb8-31" title="31"><span class="co">#&gt; + Unrelated2   1   344.85 -2124.5</span></a>
-<a class="sourceLine" id="cb8-32" title="32"><span class="co">#&gt; + Unrelated10  1   344.92 -2124.3</span></a>
-<a class="sourceLine" id="cb8-33" title="33"><span class="co">#&gt; + Unrelated12  1   344.93 -2124.3</span></a>
-<a class="sourceLine" id="cb8-34" title="34"><span class="co">#&gt; + Unrelated14  1   344.98 -2124.1</span></a>
-<a class="sourceLine" id="cb8-35" title="35"><span class="co">#&gt; + Unrelated13  1   344.99 -2124.1</span></a>
-<a class="sourceLine" id="cb8-36" title="36"><span class="co">#&gt; + Unrelated3   1   345.02 -2124.0</span></a>
-<a class="sourceLine" id="cb8-37" title="37"><span class="co">#&gt; + Unrelated18  1   345.02 -2124.0</span></a>
-<a class="sourceLine" id="cb8-38" title="38"><span class="co">#&gt; + Unrelated5   1   345.02 -2124.0</span></a>
-<a class="sourceLine" id="cb8-39" title="39"><span class="co">#&gt; + Unrelated9   1   345.02 -2124.0</span></a>
-<a class="sourceLine" id="cb8-40" title="40"><span class="co">#&gt; + Unrelated17  1   345.03 -2124.0</span></a>
-<a class="sourceLine" id="cb8-41" title="41"><span class="co">#&gt; + Unrelated16  1   345.03 -2124.0</span></a>
-<a class="sourceLine" id="cb8-42" title="42"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-43" title="43"><span class="co">#&gt; Step:  AIC=-2136.69</span></a>
-<a class="sourceLine" id="cb8-44" title="44"><span class="co">#&gt; Y ~ X3</span></a>
-<a class="sourceLine" id="cb8-45" title="45"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-46" title="46"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-47" title="47"><span class="co">#&gt; + X2           1   339.36 -2138.5</span></a>
-<a class="sourceLine" id="cb8-48" title="48"><span class="co">#&gt; + Unrelated8   1   339.46 -2138.2</span></a>
-<a class="sourceLine" id="cb8-49" title="49"><span class="co">#&gt; + X1           1   339.50 -2138.1</span></a>
-<a class="sourceLine" id="cb8-50" title="50"><span class="co">#&gt; + Unrelated15  1   339.85 -2137.1</span></a>
-<a class="sourceLine" id="cb8-51" title="51"><span class="co">#&gt; + Unrelated20  1   339.87 -2137.0</span></a>
-<a class="sourceLine" id="cb8-52" title="52"><span class="co">#&gt; + Unrelated19  1   339.90 -2136.9</span></a>
-<a class="sourceLine" id="cb8-53" title="53"><span class="co">#&gt; &lt;none&gt;             340.67 -2136.7</span></a>
-<a class="sourceLine" id="cb8-54" title="54"><span class="co">#&gt; + Unrelated7   1   340.15 -2136.2</span></a>
-<a class="sourceLine" id="cb8-55" title="55"><span class="co">#&gt; + Unrelated11  1   340.27 -2135.9</span></a>
-<a class="sourceLine" id="cb8-56" title="56"><span class="co">#&gt; + Unrelated2   1   340.45 -2135.3</span></a>
-<a class="sourceLine" id="cb8-57" title="57"><span class="co">#&gt; + Unrelated1   1   340.50 -2135.2</span></a>
-<a class="sourceLine" id="cb8-58" title="58"><span class="co">#&gt; + Unrelated4   1   340.51 -2135.2</span></a>
-<a class="sourceLine" id="cb8-59" title="59"><span class="co">#&gt; + Unrelated6   1   340.53 -2135.1</span></a>
-<a class="sourceLine" id="cb8-60" title="60"><span class="co">#&gt; + Unrelated12  1   340.55 -2135.1</span></a>
-<a class="sourceLine" id="cb8-61" title="61"><span class="co">#&gt; + Unrelated10  1   340.59 -2134.9</span></a>
-<a class="sourceLine" id="cb8-62" title="62"><span class="co">#&gt; + Unrelated16  1   340.63 -2134.8</span></a>
-<a class="sourceLine" id="cb8-63" title="63"><span class="co">#&gt; + Unrelated13  1   340.63 -2134.8</span></a>
-<a class="sourceLine" id="cb8-64" title="64"><span class="co">#&gt; + Unrelated17  1   340.64 -2134.8</span></a>
-<a class="sourceLine" id="cb8-65" title="65"><span class="co">#&gt; + Unrelated5   1   340.65 -2134.8</span></a>
-<a class="sourceLine" id="cb8-66" title="66"><span class="co">#&gt; + Unrelated9   1   340.66 -2134.7</span></a>
-<a class="sourceLine" id="cb8-67" title="67"><span class="co">#&gt; + Unrelated18  1   340.66 -2134.7</span></a>
-<a class="sourceLine" id="cb8-68" title="68"><span class="co">#&gt; + Unrelated14  1   340.67 -2134.7</span></a>
-<a class="sourceLine" id="cb8-69" title="69"><span class="co">#&gt; + Unrelated3   1   340.67 -2134.7</span></a>
-<a class="sourceLine" id="cb8-70" title="70"><span class="co">#&gt; - X3           1   345.03 -2126.1</span></a>
-<a class="sourceLine" id="cb8-71" title="71"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-72" title="72"><span class="co">#&gt; Step:  AIC=-2138.55</span></a>
-<a class="sourceLine" id="cb8-73" title="73"><span class="co">#&gt; Y ~ X3 + X2</span></a>
-<a class="sourceLine" id="cb8-74" title="74"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-75" title="75"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-76" title="76"><span class="co">#&gt; + Unrelated8   1   338.17 -2140.0</span></a>
-<a class="sourceLine" id="cb8-77" title="77"><span class="co">#&gt; + X1           1   338.25 -2139.8</span></a>
-<a class="sourceLine" id="cb8-78" title="78"><span class="co">#&gt; + Unrelated19  1   338.40 -2139.3</span></a>
-<a class="sourceLine" id="cb8-79" title="79"><span class="co">#&gt; + Unrelated15  1   338.54 -2138.9</span></a>
-<a class="sourceLine" id="cb8-80" title="80"><span class="co">#&gt; + Unrelated20  1   338.55 -2138.9</span></a>
-<a class="sourceLine" id="cb8-81" title="81"><span class="co">#&gt; &lt;none&gt;             339.36 -2138.6</span></a>
-<a class="sourceLine" id="cb8-82" title="82"><span class="co">#&gt; + Unrelated7   1   338.86 -2138.0</span></a>
-<a class="sourceLine" id="cb8-83" title="83"><span class="co">#&gt; + Unrelated11  1   338.97 -2137.7</span></a>
-<a class="sourceLine" id="cb8-84" title="84"><span class="co">#&gt; + Unrelated2   1   339.12 -2137.2</span></a>
-<a class="sourceLine" id="cb8-85" title="85"><span class="co">#&gt; + Unrelated4   1   339.16 -2137.1</span></a>
-<a class="sourceLine" id="cb8-86" title="86"><span class="co">#&gt; + Unrelated1   1   339.19 -2137.1</span></a>
-<a class="sourceLine" id="cb8-87" title="87"><span class="co">#&gt; + Unrelated12  1   339.21 -2137.0</span></a>
-<a class="sourceLine" id="cb8-88" title="88"><span class="co">#&gt; + Unrelated6   1   339.22 -2137.0</span></a>
-<a class="sourceLine" id="cb8-89" title="89"><span class="co">#&gt; + Unrelated10  1   339.26 -2136.8</span></a>
-<a class="sourceLine" id="cb8-90" title="90"><span class="co">#&gt; - X2           1   340.67 -2136.8</span></a>
-<a class="sourceLine" id="cb8-91" title="91"><span class="co">#&gt; + Unrelated16  1   339.30 -2136.7</span></a>
-<a class="sourceLine" id="cb8-92" title="92"><span class="co">#&gt; + Unrelated17  1   339.31 -2136.7</span></a>
-<a class="sourceLine" id="cb8-93" title="93"><span class="co">#&gt; + Unrelated13  1   339.32 -2136.7</span></a>
-<a class="sourceLine" id="cb8-94" title="94"><span class="co">#&gt; + Unrelated9   1   339.34 -2136.6</span></a>
-<a class="sourceLine" id="cb8-95" title="95"><span class="co">#&gt; + Unrelated5   1   339.35 -2136.6</span></a>
-<a class="sourceLine" id="cb8-96" title="96"><span class="co">#&gt; + Unrelated18  1   339.35 -2136.6</span></a>
-<a class="sourceLine" id="cb8-97" title="97"><span class="co">#&gt; + Unrelated14  1   339.35 -2136.6</span></a>
-<a class="sourceLine" id="cb8-98" title="98"><span class="co">#&gt; + Unrelated3   1   339.36 -2136.6</span></a>
-<a class="sourceLine" id="cb8-99" title="99"><span class="co">#&gt; - X3           1   343.78 -2127.8</span></a>
-<a class="sourceLine" id="cb8-100" title="100"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-101" title="101"><span class="co">#&gt; Step:  AIC=-2140.05</span></a>
-<a class="sourceLine" id="cb8-102" title="102"><span class="co">#&gt; Y ~ X3 + X2 + Unrelated8</span></a>
-<a class="sourceLine" id="cb8-103" title="103"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-104" title="104"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-105" title="105"><span class="co">#&gt; + X1           1   336.99 -2141.5</span></a>
-<a class="sourceLine" id="cb8-106" title="106"><span class="co">#&gt; + Unrelated19  1   337.25 -2140.7</span></a>
-<a class="sourceLine" id="cb8-107" title="107"><span class="co">#&gt; + Unrelated20  1   337.42 -2140.2</span></a>
-<a class="sourceLine" id="cb8-108" title="108"><span class="co">#&gt; + Unrelated15  1   337.42 -2140.2</span></a>
-<a class="sourceLine" id="cb8-109" title="109"><span class="co">#&gt; &lt;none&gt;             338.17 -2140.1</span></a>
-<a class="sourceLine" id="cb8-110" title="110"><span class="co">#&gt; + Unrelated7   1   337.70 -2139.4</span></a>
-<a class="sourceLine" id="cb8-111" title="111"><span class="co">#&gt; + Unrelated11  1   337.74 -2139.3</span></a>
-<a class="sourceLine" id="cb8-112" title="112"><span class="co">#&gt; + Unrelated4   1   337.93 -2138.8</span></a>
-<a class="sourceLine" id="cb8-113" title="113"><span class="co">#&gt; + Unrelated2   1   337.97 -2138.7</span></a>
-<a class="sourceLine" id="cb8-114" title="114"><span class="co">#&gt; - Unrelated8   1   339.36 -2138.6</span></a>
-<a class="sourceLine" id="cb8-115" title="115"><span class="co">#&gt; + Unrelated1   1   338.00 -2138.6</span></a>
-<a class="sourceLine" id="cb8-116" title="116"><span class="co">#&gt; + Unrelated12  1   338.05 -2138.4</span></a>
-<a class="sourceLine" id="cb8-117" title="117"><span class="co">#&gt; + Unrelated6   1   338.06 -2138.4</span></a>
-<a class="sourceLine" id="cb8-118" title="118"><span class="co">#&gt; + Unrelated10  1   338.07 -2138.4</span></a>
-<a class="sourceLine" id="cb8-119" title="119"><span class="co">#&gt; - X2           1   339.46 -2138.3</span></a>
-<a class="sourceLine" id="cb8-120" title="120"><span class="co">#&gt; + Unrelated17  1   338.11 -2138.2</span></a>
-<a class="sourceLine" id="cb8-121" title="121"><span class="co">#&gt; + Unrelated13  1   338.12 -2138.2</span></a>
-<a class="sourceLine" id="cb8-122" title="122"><span class="co">#&gt; + Unrelated16  1   338.12 -2138.2</span></a>
-<a class="sourceLine" id="cb8-123" title="123"><span class="co">#&gt; + Unrelated5   1   338.15 -2138.1</span></a>
-<a class="sourceLine" id="cb8-124" title="124"><span class="co">#&gt; + Unrelated14  1   338.16 -2138.1</span></a>
-<a class="sourceLine" id="cb8-125" title="125"><span class="co">#&gt; + Unrelated9   1   338.16 -2138.1</span></a>
-<a class="sourceLine" id="cb8-126" title="126"><span class="co">#&gt; + Unrelated3   1   338.16 -2138.1</span></a>
-<a class="sourceLine" id="cb8-127" title="127"><span class="co">#&gt; + Unrelated18  1   338.17 -2138.1</span></a>
-<a class="sourceLine" id="cb8-128" title="128"><span class="co">#&gt; - X3           1   342.62 -2129.2</span></a>
-<a class="sourceLine" id="cb8-129" title="129"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-130" title="130"><span class="co">#&gt; Step:  AIC=-2141.56</span></a>
-<a class="sourceLine" id="cb8-131" title="131"><span class="co">#&gt; Y ~ X3 + X2 + Unrelated8 + X1</span></a>
-<a class="sourceLine" id="cb8-132" title="132"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-133" title="133"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-134" title="134"><span class="co">#&gt; + Unrelated19  1   336.10 -2142.1</span></a>
-<a class="sourceLine" id="cb8-135" title="135"><span class="co">#&gt; + Unrelated20  1   336.20 -2141.9</span></a>
-<a class="sourceLine" id="cb8-136" title="136"><span class="co">#&gt; + Unrelated15  1   336.26 -2141.7</span></a>
-<a class="sourceLine" id="cb8-137" title="137"><span class="co">#&gt; &lt;none&gt;             336.99 -2141.6</span></a>
-<a class="sourceLine" id="cb8-138" title="138"><span class="co">#&gt; + Unrelated11  1   336.49 -2141.0</span></a>
-<a class="sourceLine" id="cb8-139" title="139"><span class="co">#&gt; + Unrelated7   1   336.53 -2140.9</span></a>
-<a class="sourceLine" id="cb8-140" title="140"><span class="co">#&gt; + Unrelated2   1   336.74 -2140.3</span></a>
-<a class="sourceLine" id="cb8-141" title="141"><span class="co">#&gt; + Unrelated4   1   336.78 -2140.2</span></a>
-<a class="sourceLine" id="cb8-142" title="142"><span class="co">#&gt; - X1           1   338.17 -2140.1</span></a>
-<a class="sourceLine" id="cb8-143" title="143"><span class="co">#&gt; + Unrelated1   1   336.81 -2140.1</span></a>
-<a class="sourceLine" id="cb8-144" title="144"><span class="co">#&gt; + Unrelated12  1   336.83 -2140.0</span></a>
-<a class="sourceLine" id="cb8-145" title="145"><span class="co">#&gt; - X2           1   338.22 -2140.0</span></a>
-<a class="sourceLine" id="cb8-146" title="146"><span class="co">#&gt; - Unrelated8   1   338.25 -2139.9</span></a>
-<a class="sourceLine" id="cb8-147" title="147"><span class="co">#&gt; + Unrelated6   1   336.89 -2139.8</span></a>
-<a class="sourceLine" id="cb8-148" title="148"><span class="co">#&gt; + Unrelated10  1   336.90 -2139.8</span></a>
-<a class="sourceLine" id="cb8-149" title="149"><span class="co">#&gt; + Unrelated16  1   336.92 -2139.8</span></a>
-<a class="sourceLine" id="cb8-150" title="150"><span class="co">#&gt; + Unrelated13  1   336.92 -2139.8</span></a>
-<a class="sourceLine" id="cb8-151" title="151"><span class="co">#&gt; + Unrelated17  1   336.92 -2139.8</span></a>
-<a class="sourceLine" id="cb8-152" title="152"><span class="co">#&gt; + Unrelated9   1   336.96 -2139.6</span></a>
-<a class="sourceLine" id="cb8-153" title="153"><span class="co">#&gt; + Unrelated5   1   336.97 -2139.6</span></a>
-<a class="sourceLine" id="cb8-154" title="154"><span class="co">#&gt; + Unrelated14  1   336.98 -2139.6</span></a>
-<a class="sourceLine" id="cb8-155" title="155"><span class="co">#&gt; + Unrelated3   1   336.98 -2139.6</span></a>
-<a class="sourceLine" id="cb8-156" title="156"><span class="co">#&gt; + Unrelated18  1   336.99 -2139.6</span></a>
-<a class="sourceLine" id="cb8-157" title="157"><span class="co">#&gt; - X3           1   341.39 -2130.7</span></a>
-<a class="sourceLine" id="cb8-158" title="158"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-159" title="159"><span class="co">#&gt; Step:  AIC=-2142.19</span></a>
-<a class="sourceLine" id="cb8-160" title="160"><span class="co">#&gt; Y ~ X3 + X2 + Unrelated8 + X1 + Unrelated19</span></a>
-<a class="sourceLine" id="cb8-161" title="161"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-162" title="162"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-163" title="163"><span class="co">#&gt; + Unrelated15  1   335.34 -2142.4</span></a>
-<a class="sourceLine" id="cb8-164" title="164"><span class="co">#&gt; + Unrelated20  1   335.35 -2142.4</span></a>
-<a class="sourceLine" id="cb8-165" title="165"><span class="co">#&gt; &lt;none&gt;             336.10 -2142.2</span></a>
-<a class="sourceLine" id="cb8-166" title="166"><span class="co">#&gt; + Unrelated7   1   335.58 -2141.7</span></a>
-<a class="sourceLine" id="cb8-167" title="167"><span class="co">#&gt; + Unrelated11  1   335.59 -2141.7</span></a>
-<a class="sourceLine" id="cb8-168" title="168"><span class="co">#&gt; - Unrelated19  1   336.99 -2141.6</span></a>
-<a class="sourceLine" id="cb8-169" title="169"><span class="co">#&gt; + Unrelated2   1   335.84 -2141.0</span></a>
-<a class="sourceLine" id="cb8-170" title="170"><span class="co">#&gt; + Unrelated4   1   335.88 -2140.9</span></a>
-<a class="sourceLine" id="cb8-171" title="171"><span class="co">#&gt; - X1           1   337.25 -2140.8</span></a>
-<a class="sourceLine" id="cb8-172" title="172"><span class="co">#&gt; + Unrelated1   1   335.92 -2140.7</span></a>
-<a class="sourceLine" id="cb8-173" title="173"><span class="co">#&gt; - Unrelated8   1   337.31 -2140.7</span></a>
-<a class="sourceLine" id="cb8-174" title="174"><span class="co">#&gt; + Unrelated12  1   335.96 -2140.6</span></a>
-<a class="sourceLine" id="cb8-175" title="175"><span class="co">#&gt; + Unrelated6   1   336.00 -2140.5</span></a>
-<a class="sourceLine" id="cb8-176" title="176"><span class="co">#&gt; + Unrelated17  1   336.03 -2140.4</span></a>
-<a class="sourceLine" id="cb8-177" title="177"><span class="co">#&gt; + Unrelated16  1   336.04 -2140.4</span></a>
-<a class="sourceLine" id="cb8-178" title="178"><span class="co">#&gt; + Unrelated13  1   336.04 -2140.4</span></a>
-<a class="sourceLine" id="cb8-179" title="179"><span class="co">#&gt; + Unrelated10  1   336.05 -2140.3</span></a>
-<a class="sourceLine" id="cb8-180" title="180"><span class="co">#&gt; + Unrelated5   1   336.07 -2140.3</span></a>
-<a class="sourceLine" id="cb8-181" title="181"><span class="co">#&gt; + Unrelated9   1   336.08 -2140.3</span></a>
-<a class="sourceLine" id="cb8-182" title="182"><span class="co">#&gt; + Unrelated14  1   336.09 -2140.2</span></a>
-<a class="sourceLine" id="cb8-183" title="183"><span class="co">#&gt; + Unrelated3   1   336.10 -2140.2</span></a>
-<a class="sourceLine" id="cb8-184" title="184"><span class="co">#&gt; + Unrelated18  1   336.10 -2140.2</span></a>
-<a class="sourceLine" id="cb8-185" title="185"><span class="co">#&gt; - X2           1   337.51 -2140.1</span></a>
-<a class="sourceLine" id="cb8-186" title="186"><span class="co">#&gt; - X3           1   340.56 -2131.1</span></a>
-<a class="sourceLine" id="cb8-187" title="187"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-188" title="188"><span class="co">#&gt; Step:  AIC=-2142.47</span></a>
-<a class="sourceLine" id="cb8-189" title="189"><span class="co">#&gt; Y ~ X3 + X2 + Unrelated8 + X1 + Unrelated19 + Unrelated15</span></a>
-<a class="sourceLine" id="cb8-190" title="190"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-191" title="191"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-192" title="192"><span class="co">#&gt; + Unrelated20  1   334.55 -2142.8</span></a>
-<a class="sourceLine" id="cb8-193" title="193"><span class="co">#&gt; &lt;none&gt;             335.34 -2142.5</span></a>
-<a class="sourceLine" id="cb8-194" title="194"><span class="co">#&gt; - Unrelated15  1   336.10 -2142.2</span></a>
-<a class="sourceLine" id="cb8-195" title="195"><span class="co">#&gt; + Unrelated7   1   334.75 -2142.2</span></a>
-<a class="sourceLine" id="cb8-196" title="196"><span class="co">#&gt; + Unrelated11  1   334.86 -2141.9</span></a>
-<a class="sourceLine" id="cb8-197" title="197"><span class="co">#&gt; - Unrelated19  1   336.26 -2141.8</span></a>
-<a class="sourceLine" id="cb8-198" title="198"><span class="co">#&gt; + Unrelated2   1   335.08 -2141.2</span></a>
-<a class="sourceLine" id="cb8-199" title="199"><span class="co">#&gt; - X1           1   336.47 -2141.1</span></a>
-<a class="sourceLine" id="cb8-200" title="200"><span class="co">#&gt; - Unrelated8   1   336.47 -2141.1</span></a>
-<a class="sourceLine" id="cb8-201" title="201"><span class="co">#&gt; + Unrelated1   1   335.15 -2141.0</span></a>
-<a class="sourceLine" id="cb8-202" title="202"><span class="co">#&gt; + Unrelated4   1   335.16 -2141.0</span></a>
-<a class="sourceLine" id="cb8-203" title="203"><span class="co">#&gt; + Unrelated12  1   335.18 -2140.9</span></a>
-<a class="sourceLine" id="cb8-204" title="204"><span class="co">#&gt; + Unrelated6   1   335.24 -2140.8</span></a>
-<a class="sourceLine" id="cb8-205" title="205"><span class="co">#&gt; + Unrelated17  1   335.26 -2140.7</span></a>
-<a class="sourceLine" id="cb8-206" title="206"><span class="co">#&gt; + Unrelated16  1   335.27 -2140.7</span></a>
-<a class="sourceLine" id="cb8-207" title="207"><span class="co">#&gt; + Unrelated13  1   335.28 -2140.7</span></a>
-<a class="sourceLine" id="cb8-208" title="208"><span class="co">#&gt; + Unrelated10  1   335.29 -2140.6</span></a>
-<a class="sourceLine" id="cb8-209" title="209"><span class="co">#&gt; + Unrelated9   1   335.32 -2140.5</span></a>
-<a class="sourceLine" id="cb8-210" title="210"><span class="co">#&gt; + Unrelated5   1   335.32 -2140.5</span></a>
-<a class="sourceLine" id="cb8-211" title="211"><span class="co">#&gt; + Unrelated14  1   335.33 -2140.5</span></a>
-<a class="sourceLine" id="cb8-212" title="212"><span class="co">#&gt; + Unrelated3   1   335.33 -2140.5</span></a>
-<a class="sourceLine" id="cb8-213" title="213"><span class="co">#&gt; + Unrelated18  1   335.34 -2140.5</span></a>
-<a class="sourceLine" id="cb8-214" title="214"><span class="co">#&gt; - X2           1   336.74 -2140.3</span></a>
-<a class="sourceLine" id="cb8-215" title="215"><span class="co">#&gt; - X3           1   339.87 -2131.1</span></a>
-<a class="sourceLine" id="cb8-216" title="216"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-217" title="217"><span class="co">#&gt; Step:  AIC=-2142.81</span></a>
-<a class="sourceLine" id="cb8-218" title="218"><span class="co">#&gt; Y ~ X3 + X2 + Unrelated8 + X1 + Unrelated19 + Unrelated15 + Unrelated20</span></a>
-<a class="sourceLine" id="cb8-219" title="219"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-220" title="220"><span class="co">#&gt;               Df Deviance     AIC</span></a>
-<a class="sourceLine" id="cb8-221" title="221"><span class="co">#&gt; &lt;none&gt;             334.55 -2142.8</span></a>
-<a class="sourceLine" id="cb8-222" title="222"><span class="co">#&gt; + Unrelated7   1   333.92 -2142.7</span></a>
-<a class="sourceLine" id="cb8-223" title="223"><span class="co">#&gt; - Unrelated20  1   335.34 -2142.5</span></a>
-<a class="sourceLine" id="cb8-224" title="224"><span class="co">#&gt; - Unrelated15  1   335.35 -2142.5</span></a>
-<a class="sourceLine" id="cb8-225" title="225"><span class="co">#&gt; + Unrelated11  1   334.06 -2142.3</span></a>
-<a class="sourceLine" id="cb8-226" title="226"><span class="co">#&gt; - Unrelated19  1   335.44 -2142.2</span></a>
-<a class="sourceLine" id="cb8-227" title="227"><span class="co">#&gt; - Unrelated8   1   335.63 -2141.7</span></a>
-<a class="sourceLine" id="cb8-228" title="228"><span class="co">#&gt; + Unrelated2   1   334.28 -2141.6</span></a>
-<a class="sourceLine" id="cb8-229" title="229"><span class="co">#&gt; + Unrelated4   1   334.35 -2141.4</span></a>
-<a class="sourceLine" id="cb8-230" title="230"><span class="co">#&gt; - X1           1   335.72 -2141.4</span></a>
-<a class="sourceLine" id="cb8-231" title="231"><span class="co">#&gt; + Unrelated1   1   334.36 -2141.4</span></a>
-<a class="sourceLine" id="cb8-232" title="232"><span class="co">#&gt; + Unrelated6   1   334.40 -2141.3</span></a>
-<a class="sourceLine" id="cb8-233" title="233"><span class="co">#&gt; + Unrelated12  1   334.41 -2141.2</span></a>
-<a class="sourceLine" id="cb8-234" title="234"><span class="co">#&gt; + Unrelated17  1   334.46 -2141.1</span></a>
-<a class="sourceLine" id="cb8-235" title="235"><span class="co">#&gt; + Unrelated13  1   334.50 -2141.0</span></a>
-<a class="sourceLine" id="cb8-236" title="236"><span class="co">#&gt; + Unrelated16  1   334.50 -2141.0</span></a>
-<a class="sourceLine" id="cb8-237" title="237"><span class="co">#&gt; + Unrelated10  1   334.50 -2141.0</span></a>
-<a class="sourceLine" id="cb8-238" title="238"><span class="co">#&gt; + Unrelated14  1   334.52 -2140.9</span></a>
-<a class="sourceLine" id="cb8-239" title="239"><span class="co">#&gt; + Unrelated9   1   334.53 -2140.9</span></a>
-<a class="sourceLine" id="cb8-240" title="240"><span class="co">#&gt; + Unrelated5   1   334.54 -2140.8</span></a>
-<a class="sourceLine" id="cb8-241" title="241"><span class="co">#&gt; + Unrelated3   1   334.55 -2140.8</span></a>
-<a class="sourceLine" id="cb8-242" title="242"><span class="co">#&gt; + Unrelated18  1   334.55 -2140.8</span></a>
-<a class="sourceLine" id="cb8-243" title="243"><span class="co">#&gt; - X2           1   335.96 -2140.7</span></a>
-<a class="sourceLine" id="cb8-244" title="244"><span class="co">#&gt; - X3           1   339.04 -2131.6</span></a>
-<a class="sourceLine" id="cb8-245" title="245"></a>
-<a class="sourceLine" id="cb8-246" title="246"><span class="kw">summary</span>(glmSearch)</a>
-<a class="sourceLine" id="cb8-247" title="247"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-248" title="248"><span class="co">#&gt; Call:</span></a>
-<a class="sourceLine" id="cb8-249" title="249"><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + Unrelated8 + X1 + Unrelated19 + Unrelated15 + </span></a>
-<a class="sourceLine" id="cb8-250" title="250"><span class="co">#&gt;     Unrelated20, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></a>
-<a class="sourceLine" id="cb8-251" title="251"><span class="co">#&gt;     data = simdata)</span></a>
-<a class="sourceLine" id="cb8-252" title="252"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-253" title="253"><span class="co">#&gt; Deviance Residuals: </span></a>
-<a class="sourceLine" id="cb8-254" title="254"><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></a>
-<a class="sourceLine" id="cb8-255" title="255"><span class="co">#&gt; -2.36149  -0.48517  -0.09361   0.29985   1.65156  </span></a>
-<a class="sourceLine" id="cb8-256" title="256"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-257" title="257"><span class="co">#&gt; Coefficients:</span></a>
-<a class="sourceLine" id="cb8-258" title="258"><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></a>
-<a class="sourceLine" id="cb8-259" title="259"><span class="co">#&gt; (Intercept)   3.2105     3.3206   0.967 0.333856    </span></a>
-<a class="sourceLine" id="cb8-260" title="260"><span class="co">#&gt; X3            3.0476     0.8384   3.635 0.000292 ***</span></a>
-<a class="sourceLine" id="cb8-261" title="261"><span class="co">#&gt; X2            1.7018     0.8362   2.035 0.042100 *  </span></a>
-<a class="sourceLine" id="cb8-262" title="262"><span class="co">#&gt; Unrelated8   -1.4772     0.8320  -1.776 0.076117 .  </span></a>
-<a class="sourceLine" id="cb8-263" title="263"><span class="co">#&gt; X1            1.5461     0.8362   1.849 0.064750 .  </span></a>
-<a class="sourceLine" id="cb8-264" title="264"><span class="co">#&gt; Unrelated19   1.3527     0.8358   1.618 0.105881    </span></a>
-<a class="sourceLine" id="cb8-265" title="265"><span class="co">#&gt; Unrelated15  -1.3127     0.8584  -1.529 0.126535    </span></a>
-<a class="sourceLine" id="cb8-266" title="266"><span class="co">#&gt; Unrelated20   1.2959     0.8523   1.520 0.128706    </span></a>
-<a class="sourceLine" id="cb8-267" title="267"><span class="co">#&gt; ---</span></a>
-<a class="sourceLine" id="cb8-268" title="268"><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></a>
-<a class="sourceLine" id="cb8-269" title="269"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-270" title="270"><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3392188)</span></a>
-<a class="sourceLine" id="cb8-271" title="271"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-272" title="272"><span class="co">#&gt;     Null deviance: 345.03  on 999  degrees of freedom</span></a>
-<a class="sourceLine" id="cb8-273" title="273"><span class="co">#&gt; Residual deviance: 334.55  on 992  degrees of freedom</span></a>
-<a class="sourceLine" id="cb8-274" title="274"><span class="co">#&gt; AIC: -2142.8</span></a>
-<a class="sourceLine" id="cb8-275" title="275"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-276" title="276"><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></a>
-<a class="sourceLine" id="cb8-277" title="277"></a>
-<a class="sourceLine" id="cb8-278" title="278"><span class="kw">rm</span>(simdata, scopeArg, glmSearch, startingModel)</a></code></pre></div>
+<h3>Very Hard Problem: Small N and most variables are unrelated</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating data to work with</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_inverse_gaussian</span>(<span class="at">N =</span> <span class="dv">1000</span>, <span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">unrelated =</span> <span class="dv">20</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Setting the simplest model and the most complex model.</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>scopeArg <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> Y <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3 <span class="sc">+</span> Unrelated1 <span class="sc">+</span> Unrelated2 <span class="sc">+</span> Unrelated3 <span class="sc">+</span> Unrelated3 <span class="sc">+</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    Unrelated4 <span class="sc">+</span> Unrelated5 <span class="sc">+</span> Unrelated6 <span class="sc">+</span> Unrelated7 <span class="sc">+</span> Unrelated8 <span class="sc">+</span> Unrelated9 <span class="sc">+</span> </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    Unrelated10 <span class="sc">+</span> Unrelated11 <span class="sc">+</span> Unrelated12 <span class="sc">+</span> Unrelated13 <span class="sc">+</span> Unrelated14 <span class="sc">+</span> Unrelated15 <span class="sc">+</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    Unrelated16 <span class="sc">+</span> Unrelated17 <span class="sc">+</span> Unrelated18 <span class="sc">+</span> Unrelated19 <span class="sc">+</span> Unrelated20</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Run search</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>startingModel <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">inverse.gaussian</span>(<span class="at">link =</span> <span class="st">&quot;1/mu^2&quot;</span>))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>glmSearch <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(startingModel, scopeArg, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmSearch)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; glm(formula = Y ~ X3 + X2 + Unrelated8 + X1 + Unrelated19 + Unrelated15 + </span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Unrelated20, family = inverse.gaussian(link = &quot;1/mu^2&quot;), </span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = simdata)</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deviance Residuals: </span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min        1Q    Median        3Q       Max  </span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -2.36149  -0.48517  -0.09361   0.29985   1.65156  </span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   3.2105     3.3206   0.967 0.333856    </span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X3            3.0476     0.8384   3.635 0.000292 ***</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X2            1.7018     0.8362   2.035 0.042100 *  </span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated8   -1.4772     0.8320  -1.776 0.076117 .  </span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; X1            1.5461     0.8362   1.849 0.064750 .  </span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated19   1.3527     0.8358   1.618 0.105881    </span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated15  -1.3127     0.8584  -1.529 0.126535    </span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unrelated20   1.2959     0.8523   1.520 0.128706    </span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Dispersion parameter for inverse.gaussian family taken to be 0.3392188)</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Null deviance: 345.03  on 999  degrees of freedom</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual deviance: 334.55  on 992  degrees of freedom</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AIC: -2142.8</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(simdata, scopeArg, glmSearch, startingModel)</span></code></pre></div>
 <p>A few unrelated features made it into the model, but at least all true predictors were selected.</p>
 </div>
-<div id="summary" class="section level3">
-<h3>Summary</h3>
+<div id="simulation-summary" class="section level3">
+<h3>Simulation Summary</h3>
 <p>Stepwise search provides a computationally fast way to select features. When half the features were unrelated, the search found the correct model for both small and large n. When the majority of features were unrelated, stepwise found all related features and erroneously selected a few unrelated variables.</p>
 </div>
 
