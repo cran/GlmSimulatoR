@@ -14,25 +14,38 @@
 
 <title>Count Data And Overdispersion</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -50,55 +63,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -107,13 +119,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -125,7 +144,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -143,60 +342,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>For count response variables, the glm framework has two options. The Poisson family and the negative binomial family. In this vignette, we will consider both and learn when to use one or the other.</p>
+<p>For count response variables, the glm framework has two options. The
+Poisson family and the negative binomial family. In this vignette, we
+will consider both and learn when to use one or the other.</p>
 </div>
 <div id="getting-familiar-with-the-poisson-family" class="section level2">
 <h2>Getting familiar with the Poisson family</h2>
-<p>First lets get an idea of how the Poisson family looks. If lambda is near 1, the Poisson family is right skewed. As lambda increases, the Poisson family becomes more symmetrical.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts=</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#lambda = 1</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>poissonDF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="at">x=</span>poisson)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(poissonDF, <span class="fu">aes</span>(<span class="at">x=</span>poisson)) <span class="sc">+</span> </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#lambda = 5</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">5</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>poissonDF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="at">x=</span>poisson)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(poissonDF, <span class="fu">aes</span>(<span class="at">x=</span>poisson)) <span class="sc">+</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#lambda = 10</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">10</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>poissonDF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="at">x=</span>poisson)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(poissonDF, <span class="fu">aes</span>(<span class="at">x=</span>poisson)) <span class="sc">+</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>First lets get an idea of how the Poisson family looks. If lambda is
+near 1, the Poisson family is right skewed. As lambda increases, the
+Poisson family becomes more symmetrical.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># lambda 1</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>poisson_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(poisson)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="fu">ggplot</span>(poisson_df, <span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># lambda 5</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>poisson_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(poisson)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">ggplot</span>(poisson_df, <span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># lambda 10</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">10</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>poisson_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(poisson)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">ggplot</span>(poisson_df, <span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="glm-poisson" class="section level2">
 <h2>GLM Poisson</h2>
 <p>Lets create data and train a model.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_poisson</span>(<span class="at">N =</span> <span class="dv">10000</span>, <span class="at">weights =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Response looks similar to above histograms</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_poisson</span>(<span class="at">N =</span> <span class="dv">10000</span>, <span class="at">weights =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>), <span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Response looks similar to above histograms</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(Y)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>glmPoisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmPoisson)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>glm_poisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">summary</span>(glm_poisson)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Y ~ X1 + X2, family = poisson(link = &quot;log&quot;), data = simdata)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -3.7852  -0.7074  -0.0209   0.6427   3.4563  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
@@ -213,92 +412,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## AIC: 60925
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-<p>The estimated weights are close the the weights argument in simulate_poisson. The model estimates are accurate.</p>
-</div>
-<div id="poisson-mean-variance-relationship" class="section level2">
-<h2>Poisson mean variance relationship</h2>
-<p>One important characteristic of the Poisson family is <span class="math inline">\(\mu\)</span> equals <span class="math inline">\(\sigma^2\)</span>. We see the sample statistics are nearly equal for different values of lambda.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#lambda = 1</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(poisson)</span></code></pre></div>
-<pre><code>## [1] 1.0055</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(poisson)</span></code></pre></div>
-<pre><code>## [1] 1.00617</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#lambda = 5</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">5</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(poisson)</span></code></pre></div>
-<pre><code>## [1] 4.9992</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(poisson)</span></code></pre></div>
-<pre><code>## [1] 4.999899</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#lambda = 10</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">10</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(poisson)</span></code></pre></div>
-<pre><code>## [1] 10.04</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(poisson)</span></code></pre></div>
-<pre><code>## [1] 10.13221</code></pre>
+<p>The estimated weights are close the the weights argument in
+simulate_poisson. The model estimates are accurate.</p>
 </div>
 <div id="poisson-vs-negative-binomial" class="section level2">
 <h2>Poisson vs Negative Binomial</h2>
-<p>For modeling, the main difference between Poisson and the negative binomial is the extra parameter. The mean variance relationship is <span class="math inline">\(\sigma^2\)</span> equals <span class="math inline">\(\mu + \mu^2/\theta\)</span> for the negative binomial. Through <span class="math inline">\(\theta\)</span> many relationships are possible.</p>
-<p>When the response variable is a count, but <span class="math inline">\(\mu\)</span> does not equal <span class="math inline">\(\sigma^2\)</span>, the Poisson distribution is not applicable. Over dispersion can be detected by dividing the residual deviance by the degrees of freedom. If this quotient is much greater than one, the negative binomial distribution should be used. There is no hard cut off of “much larger than one”, but a rule of thumb is 1.10 or greater is considered large.</p>
+<p>For modeling, the main difference between Poisson and the negative
+binomial is the extra parameter. For the Poisson distribution, the
+mean-variance relationship is <span class="math inline">\(\sigma^2
+=\mu\)</span>. For the negative binomial distribution, the mean-variance
+relationship is <span class="math inline">\(\sigma^2 = \mu +
+\mu^2/\theta\)</span>. Through <span class="math inline">\(\theta\)</span>, a more flexible relationships is
+possible.</p>
 </div>
 <div id="getting-familiar-with-the-negative-binomial-family" class="section level2">
 <h2>Getting familiar with the negative binomial family</h2>
-<p>When <span class="math inline">\(\theta\)</span> is large, <span class="math inline">\(\mu + \mu^2/\theta\)</span> is roughly equal to <span class="math inline">\(\mu\)</span> . Therefore the negative binomial will be similar to Poisson distribution.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>poissonDF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="at">x=</span>poisson)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(poissonDF, <span class="fu">aes</span>(<span class="at">x=</span>poisson)) <span class="sc">+</span> </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAsVBMVEUAAAAAADoAAGYAOpAAZrYzMzM6AAA6ADo6AGY6kNtNTU1NTW5NTY5NbqtNjshZWVlmAABmADpmtv9uTU1uTW5uTY5ubo5ubqtuq+SOTU2OTW6OTY6Obk2ObquOyP+QOgCQkGaQtpCQ2/+rbk2rbm6rjk2ryKur5OSr5P+2ZgC2///Ijk3I///bkDrb///kq27k///r6+v/tmb/yI7/25D/5Kv//7b//8j//9v//+T///+jogouAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAGC0lEQVR4nO3ciXbaRgCFYcVxSSI7NcVpY3fBrdOkXkPYbb3/g1UzLJIAcZmxhIT133Napb1mgC+jQQakICJbE1T9AOoegEQAEgFIBCARgEReBNRPkv7zarZ13jcse1CARAeQ6AASHUCiA0h0AIkOINEBJDqARAeQ6AoGOjur8LmUMihAogNIdACJDiDR7RFoKx5AANkABBBAfYBcukKAkpyd+XX1DzMopwNIdACJDiDRASQ6gEQHkOgAEh1AogNIdACJDiDRASQ6gEQHkOgAEh1AogNIdACJDiDRASQ6gEQHkOgAEh1AotsBaBiGpw9RNL0MP/5Y3QAUReNfH6Lez9Hzl+76BqAEafrHw/oGoHniyTL+/COa/n6T3cTVT3GSH2zmlxfG5yc30fCjJclu5j+QeDd1Bq1NnWQGAWRz32UNyst8b3r+cjF7+UpvADLphWG8BnEc9IIkwwEEEEB9gFw6gEQHkOgAEh1AogNIdACJDiDRASQ6gEQHkOgAEh1AogNIdACJDiDRASQ6gEQHkOgAEl0hQEma+eUFmcSbGQQQQH2AXDqARAeQ6AASHUCiA0h0AIkOINEBJDqARAeQ6AASHUCiA0h0AIkOINFtApq0O2YzOLoDCCDVrQM9Bosc7+jTMKDlDNo9yXDNAHJOMlxDgEYtu4uxBvU3Az1dZVaf8XkYdjnjMCWSXYPMyc3jTzdceSE9g9JAQ+PAWc+ZNWjtCGjLefNNvPLCpB1kF2lzEjhXXsjP9PIiyr12B0Dxq1jXKLEG5exiM5+IKy+sZvLLtd32QpMux0FrGbz9nr/fZZIM1ywgftXobwW63eMMio+RXv5cirvhbov0m+sdfRoH5JxkOIAAsrFvu34AqJ8D9GhevybtnYWS4ZoBVMGnGgDJ7pCA2MVYpHfvNgM5JhkOIIBMnq4+rH72A1D6Cd8eR2ufjgGUhJd5gHbvNgFxHCRfxQYcBy3/uBHIMclwAAEEUL94oCS+X16o/xcbmEE5HUCiA0h0AIkOINEBJDqARAeQ6AASHUCiA0h0AIkOINEBJDqARAeQ6AASHUCiA0h0AIkOINEBJDqARAeQ6AAS3U5A9uzUUs84PGygYXj6EJV75YWDBro/+RbPoHLPej5ooNkuVu6VFw78ywsGqNwrL7ziGQTQHIg1SACVe+WFVwDEcdALkgwHEEAA9QFy6QASHUCiA0h0AIkOINEBJDqARAeQ6AASHUCiOwAgfzyA+gCJDiDRASQ6gEQHkOgAEh1AojsQoCRlfHmhHl9sYAbldACJDiDRASQ6gEQHkOgAEh1AogNIdACJDiDRASQ6gEQHkOgAEh1AogNIdACJDiDRHTzQtlEBEqMCJEYFSIwKkBgVIDFqlUB7POPwIIH2eeWFgwTa51nP/kBF4HkC5V154fXGESjvygvek7qIvaGUQT2B8q68ANA8eWsQQPPkXXkBoOUU2nwcBNDG1OS5lDIoQKIDSHQAiQ4g0RUClIr3rx2+N9zXHQIkApAIQCJFAb3aACQCkAhAIgCJFAKUeQ/EJePzMOx63aX5eMXrZuHJjf6xVIoAyn4W5BDz5u34k9sDnqfnB3vftW+rO6QIoOz7sA4ZGtV7n2c6/u1Pn5uZR+qYIoCy7+Q7xuuGz//+57WLjT9/rWIXy34W5BbzJrd7ehd+a9D4vGv/Oh1S8QyaXvr4xHfoCeT+SCtdg+zfqEd6oYkH7fSvSoCynwU5xNNndp++r2IV7GLex0GzmeB5QON1s/iRnrpNdY6kRQASAUgEIBGARAASqT3Q6N11pfdfe6CqA5BI7YBG7/4Ogrffo+jpKgiOZ7vYqBUEQSdabpfVPy3732WmfkCto7unq+No8U8MZJehUauz2C6rVgz5eHRX6uOpIVDHTpuBeeLxvwzQ+5nBYrus5j9a6uOpH5B5wpN2Z2B2s/n0ubV7VLTYpiuAZgCTdmB3JbttOJDdb97fDd5cL3Yx+/9js8U2UzUQaG2RtmtOapuqmghkXubNSpN6mR/Er+521sy3qaqJQNX+arEagEQAEqkdUN0CkAhAIgCJACQCkAhAIv8DT3majoDQM2gAAAAASUVORK5CYII=" /><!-- --></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>negBin <span class="ot">&lt;-</span> <span class="fu">rnegbin</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> <span class="dv">1</span>, <span class="at">theta =</span> <span class="dv">1000</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>negBinDF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="at">x=</span>negBin)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(negBinDF, <span class="fu">aes</span>(<span class="at">x=</span>negBin)) <span class="sc">+</span> </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>If <span class="math inline">\(\theta\)</span> is small, <span class="math inline">\(\mu + \mu^2/\theta\)</span> does not approximately equal <span class="math inline">\(\mu\)</span>. The negative binomial will look different than the Poisson distribution. Note the difference in scale on the x axis and y axis.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>poissonDF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="at">x=</span>poisson)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(poissonDF, <span class="fu">aes</span>(<span class="at">x=</span>poisson)) <span class="sc">+</span> </span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>negBin <span class="ot">&lt;-</span> <span class="fu">rnegbin</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> <span class="dv">1</span>, <span class="at">theta =</span> <span class="dv">1</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>negBinDF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="at">x=</span>negBin)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(negBinDF, <span class="fu">aes</span>(<span class="at">x=</span>negBin)) <span class="sc">+</span> </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>When <span class="math inline">\(\theta\)</span> is large, <span class="math inline">\(\mu + \mu^2/\theta\)</span> is roughly equal to
+<span class="math inline">\(\mu\)</span> . Therefore the negative
+binomial will be similar to Poisson distribution.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>poisson_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(poisson)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">ggplot</span>(poisson_df, <span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>neg_bin_rv <span class="ot">&lt;-</span> <span class="fu">rnegbin</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> <span class="dv">1</span>, <span class="at">theta =</span> <span class="dv">1000</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>neg_bin_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(neg_bin_rv)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">ggplot</span>(neg_bin_df, <span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>If <span class="math inline">\(\theta\)</span> is small, <span class="math inline">\(\mu + \mu^2/\theta\)</span> does not approximately
+equal <span class="math inline">\(\mu\)</span>. The negative binomial
+will look different than the Poisson distribution. Note the difference
+in scale on the x axis and y axis.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>poisson <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>poisson_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(poisson)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fu">ggplot</span>(poisson_df, <span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>neg_bin_rv <span class="ot">&lt;-</span> <span class="fu">rnegbin</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mu =</span> <span class="dv">1</span>, <span class="at">theta =</span> <span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>neg_bin_df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(neg_bin_rv)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">ggplot</span>(neg_bin_df, <span class="fu">aes</span>(value)) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="glm-negative-binomial" class="section level2">
 <h2>GLM Negative Binomial</h2>
-<p>Lets create data where the flexibility of the negative binomial is needed and compare the Poisson estimates to the negative binomial estimates.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_negative_binomial</span>(<span class="at">N =</span> <span class="dv">10000</span>, <span class="at">weights =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>), <span class="at">ancillary =</span> <span class="dv">5</span>) <span class="co">#ancillary is theta.</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Response looks like a negative binomial distribution.</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">200</span>)</span></code></pre></div>
+<p>Lets create data where the flexibility of the negative binomial is
+needed and compare the Poisson estimates to the negative binomial
+estimates.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_negative_binomial</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="at">N =</span> <span class="dv">10000</span>, <span class="at">weights =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="at">ancillary =</span> <span class="dv">5</span>, <span class="at">link =</span> <span class="st">&quot;log&quot;</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>) <span class="co"># ancillary is theta.</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co"># Response looks like a negative binomial distribution.</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(Y)) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">200</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>glmPoisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>))</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>glmNB <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmPoisson)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>glm_poisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>glm_nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="fu">summary</span>(glm_poisson)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Y ~ X1 + X2, family = poisson(link = &quot;log&quot;), data = simdata)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -7.8711  -1.9642  -0.3617   1.3337  11.0001  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
@@ -315,14 +501,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## AIC: 113055
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmNB)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">summary</span>(glm_nb)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm.nb(formula = Y ~ X1 + X2, data = simdata, link = &quot;log&quot;, init.theta = 4.967762132)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -4.0892  -0.8275  -0.1503   0.5161   3.7115  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
@@ -345,7 +527,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##           Std. Err.:  0.0835 
 ## 
 ##  2 x log-likelihood:  -77874.7800</code></pre>
-<p>The estimated slopes are very similar. However, the standard errors are not. The fact <span class="math inline">\(\mu\)</span> does not equal <span class="math inline">\(\sigma^2\)</span> has caused a major under estimation of standard errors for the Poisson GLM. For Poisson models, it is important to look at residual deviance divided by the degrees of freedom. When this quotient is larger than 1, the negative binomial should be considered. In the above the quotient was 6.33 (63327 / 9997) for the Poisson glm. For these data, the negative binomial model is more appropriate.</p>
+<p>The estimated slopes are very similar. However, the standard errors
+are not. The fact <span class="math inline">\(\mu\)</span> does not
+equal <span class="math inline">\(\sigma^2\)</span> has caused a major
+under estimation of standard errors for the Poisson GLM.</p>
+<p>For Poisson models, it is important to look at residual deviance
+divided by the degrees of freedom. When this quotient is larger than 1,
+the negative binomial should be considered. In the above the quotient
+was 6.33 (63327 / 9997) for the Poisson glm.</p>
 </div>
 
 

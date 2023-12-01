@@ -14,25 +14,38 @@
 
 <title>Exploring Links for the Gaussian Distribution</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -50,55 +63,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -107,13 +119,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -125,7 +144,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -137,71 +336,103 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<h1 class="title toc-ignore">Exploring Links for the Gaussian Distribution</h1>
+<h1 class="title toc-ignore">Exploring Links for the Gaussian
+Distribution</h1>
 
 
 
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>Compared to the linear model, one advantage of the generalized linear model is its ability to model different relationships between the response variable and the predictors. One challenge is knowing which link to use. In this vignette, we will explore how different relationships affect correlation and the visual appearance of scatter plots.</p>
+<p>Compared to the linear model, one advantage of the generalized linear
+model is its ability to model different relationships between the
+response variable and the predictors. One challenge is knowing which
+link to use. In this vignette, we will explore how different
+relationships affect correlation and the visual appearance of scatter
+plots.</p>
 </div>
 <div id="inverse-link" class="section level1">
 <h1>Inverse Link</h1>
 <div id="mathematical-background" class="section level3">
 <h3>Mathematical Background</h3>
-<p>For the identity link, the underlying model is <span class="math display">\[Y = \beta_2X_2 + \beta_1X_1 + \beta_0\]</span> Note there is no need to rearrange for Y because the link is the identity function.</p>
-<p>Using the inverse link function, the underlying model is <span class="math display">\[ 1/Y = \beta_2X_2 + \beta_1X_1 + \beta_0\]</span>.</p>
+<p>For the identity link, the underlying model is <span class="math display">\[Y = \beta_2X_2 + \beta_1X_1 + \beta_0\]</span>
+Note there is no need to rearrange for Y because the link is the
+identity function.</p>
+<p>Using the inverse link function, the underlying model is <span class="math display">\[ 1/Y = \beta_2X_2 + \beta_1X_1 +
+\beta_0\]</span>.</p>
 <p>Rearranging for Y, we get <span class="math display">\[
 Y = 1 / (\beta_2X_2 + \beta_1X_1 + \beta_0)
-\]</span> We see the relationship between Y and <strong>X</strong> is different between the two models. This is the beauty of the glm framework. It can handle many different relationships between Y and <strong>X</strong>.</p>
+\]</span> We see the relationship between Y and <strong>X</strong> is
+different between the two models. This is the beauty of the glm
+framework. It can handle many different relationships between Y and
+<strong>X</strong>.</p>
 </div>
 <div id="exploring-data" class="section level3">
 <h3>Exploring Data</h3>
-<p>First, lets generate some data.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_gaussian</span>(<span class="at">N =</span> <span class="dv">1000</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">unrelated =</span> <span class="dv">1</span>, <span class="at">ancillary =</span> .<span class="dv">005</span>)</span></code></pre></div>
-<p>Next, lets do some basic data exploration. We see the response is gaussian.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p>First, lets generate data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_gaussian</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">N =</span> <span class="dv">1000</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="at">unrelated =</span> <span class="dv">1</span>, <span class="at">ancillary =</span> .<span class="dv">005</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>)</span></code></pre></div>
+<p>The response is Gaussian.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> Y)) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>The connection between Y and X1 is not obvious. There is only a slight downward trend. One might see it as unrelated.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>The connection between Y and X1 is not obvious. There is only a
+slight downward trend. One might see it as unrelated.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>There is a connection between Y and X2. No surprise as the true weight is three.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>X2, <span class="at">y=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>There is a connection between Y and X2. No surprise as the true
+weight is three.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> X2, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>The scatter plot between the unrelated variable and Y looks like random noise. It is interesting to note the scatter plot for X1 looks more similar to this one than X2’s scatter plot despite being included in the model.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>Unrelated1, <span class="at">y=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>The scatter plot between the unrelated variable and Y looks like
+random noise. It is interesting to note the scatter plot for X1 looks
+more similar to this one than X2’s scatter plot despite being included
+in the model.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> Unrelated1, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>We see the correlation is very strong between Y and X2. This is no surprise considering the above graph. The correlation between Y and X1 is somewhat larger in absolute value than the unrelated variable. However, I would not see this as particularly good news in predicting Y if I did not know the correct model.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>simdata<span class="sc">$</span>X1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.2566767</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>simdata<span class="sc">$</span>X2, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.8667127</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>simdata<span class="sc">$</span>Unrelated1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.04608871</span></span></code></pre></div>
+<p>The correlation is very strong between Y and X2. This is no surprise
+considering the above graph. The correlation between Y and X1 is
+somewhat larger in absolute value than the unrelated variable.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> simdata<span class="sc">$</span>X1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; [1] -0.2566767</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> simdata<span class="sc">$</span>X2, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; [1] -0.8667127</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> simdata<span class="sc">$</span>Unrelated1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; [1] 0.04608871</span></span></code></pre></div>
 </div>
 <div id="building-models" class="section level3">
 <h3>Building Models</h3>
-<p>Pretending the correct model is unknown, lets try to find it. We will try three models. One with just X2, one with X1 and X2, and one with everything. Will the correct model stand out?</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>glmInverseX2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>glmInverseX1X2<span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>))</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>glmInverseX1X2U1<span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> Unrelated1, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmInverseX2)<span class="sc">$</span>aic</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -7245.43</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmInverseX1X2)<span class="sc">$</span>aic</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -7647.507</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmInverseX1X2U1)<span class="sc">$</span>aic</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -7645.924</span></span></code></pre></div>
+<p>Pretending the correct model is unknown, lets try to find it. Three
+models are built. One with just X2, one with X1 and X2, and one with
+everything. Will the correct model stand out?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>glm_inverse_x2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X2,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">data =</span> simdata,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>glm_inverse_x1_x2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="at">data =</span> simdata,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>glm_inverse_x1x2u1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> Unrelated1,</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="at">data =</span> simdata,</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>)</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="fu">summary</span>(glm_inverse_x2)<span class="sc">$</span>aic</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; [1] -7245.43</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="fu">summary</span>(glm_inverse_x1_x2)<span class="sc">$</span>aic <span class="co"># correct model</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; [1] -7647.507</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="fu">summary</span>(glm_inverse_x1x2u1)<span class="sc">$</span>aic</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; [1] -7645.924</span></span></code></pre></div>
 <p>The correct model has the lowest AIC.</p>
 </div>
 </div>
@@ -209,67 +440,89 @@ Y = 1 / (\beta_2X_2 + \beta_1X_1 + \beta_0)
 <h1>Log Link</h1>
 <div id="mathematical-background-1" class="section level3">
 <h3>Mathematical Background</h3>
-<p>Above we saw using the identity link assumes an additive relationship between Y and <strong>X</strong>. <span class="math display">\[Y = \beta_2X_2 + \beta_1X_1 + \beta_0\]</span></p>
-<p>For the log link, the underlying model is <span class="math display">\[\ln(Y) = \beta_2X_2 + \beta_1X_1 + \beta_0\]</span></p>
+<p>Above we saw using the identity link assumes an additive relationship
+between Y and <strong>X</strong>. <span class="math display">\[Y =
+\beta_2X_2 + \beta_1X_1 + \beta_0\]</span></p>
+<p>For the log link, the underlying model is <span class="math display">\[\ln(Y) = \beta_2X_2 + \beta_1X_1 +
+\beta_0\]</span></p>
 <p>Rearranging for Y, we get <span class="math display">\[
 Y = \exp (\beta_2X_2 + \beta_1X_1 + \beta_0)
 \]</span> Splitting up the exponent, we get <span class="math display">\[
 Y = \exp (\beta_2X_2) * \exp (\beta_1X_1) * \exp (\beta_0)
-\]</span> Thus the relationship between Y and <strong>X</strong> is not additive for the log link.</p>
+\]</span> Thus the relationship between Y and <strong>X</strong> is not
+additive for the log link.</p>
 </div>
 <div id="exploring-data-1" class="section level3">
 <h3>Exploring Data</h3>
-<p>First, lets generate some data.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_gaussian</span>(<span class="at">N =</span> <span class="dv">1000</span>, <span class="at">weights =</span> <span class="fu">c</span>(.<span class="dv">3</span>, .<span class="dv">8</span>), <span class="at">link =</span> <span class="st">&quot;log&quot;</span>, </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">unrelated =</span> <span class="dv">1</span>, <span class="at">ancillary =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p>We see the response is somewhat gaussian.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p>First, lets generate data.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_gaussian</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="at">N =</span> <span class="dv">1000</span>, <span class="at">weights =</span> <span class="fu">c</span>(.<span class="dv">3</span>, .<span class="dv">8</span>), <span class="at">link =</span> <span class="st">&quot;log&quot;</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="at">unrelated =</span> <span class="dv">1</span>, <span class="at">ancillary =</span> <span class="dv">1</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>)</span></code></pre></div>
+<p>We see the response is somewhat Gaussian.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> Y)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>The connection between Y and X1 is not obvious…</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>There is a connection between Y and X2. No surprise as the true weight is .8 on the log scale.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>X2, <span class="at">y=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>There is a connection between Y and X2. No surprise as the true
+weight is .8 on the log scale.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> X2, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>The scatter plot between the unrelated variable and Y looks like random noise.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x=</span>Unrelated1, <span class="at">y=</span>Y)) <span class="sc">+</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>The scatter plot between the unrelated variable and Y looks like
+random noise.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> Unrelated1, <span class="at">y =</span> Y)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>Again X2’s correlation is large. X1 is in the gray area. The unrelated variable’s correlation is near zero.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>simdata<span class="sc">$</span>X1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3058583</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>simdata<span class="sc">$</span>X2, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8764507</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x=</span>simdata<span class="sc">$</span>Unrelated1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.04017587</span></span></code></pre></div>
+<p>Again X2’s correlation is large. X1 is in the gray area. The
+unrelated variable’s correlation is near zero.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> simdata<span class="sc">$</span>X1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; [1] 0.3058583</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> simdata<span class="sc">$</span>X2, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; [1] 0.8764507</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> simdata<span class="sc">$</span>Unrelated1, <span class="at">y =</span> simdata<span class="sc">$</span>Y)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; [1] -0.04017587</span></span></code></pre></div>
 </div>
 <div id="building-models-1" class="section level3">
 <h3>Building Models</h3>
-<p>Pretending the correct model is unknown again, lets try to find it. For a change we will compare the the link functions for the gaussian family.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>glmIdentity <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>glmInverse<span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>glmLog<span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmIdentity)<span class="sc">$</span>aic</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3032.25</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmInverse)<span class="sc">$</span>aic</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3069.088</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmLog)<span class="sc">$</span>aic</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2948.311</span></span></code></pre></div>
+<p>Pretending the correct model is unknown, three models are built. For
+a change, links vary and predictor variables are held constant.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>glm_identity <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="at">data =</span> simdata,</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>glm_inverse <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>  <span class="at">data =</span> simdata,</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>glm_log <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  <span class="at">data =</span> simdata,</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>)</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="fu">summary</span>(glm_identity)<span class="sc">$</span>aic</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; [1] 3032.25</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="fu">summary</span>(glm_inverse)<span class="sc">$</span>aic</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt; [1] 3069.088</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="fu">summary</span>(glm_log)<span class="sc">$</span>aic <span class="co"># correct model.</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; [1] 2948.311</span></span></code></pre></div>
 <p>Again, the correct model has the lowest AIC.</p>
 </div>
 </div>
 <div id="summary" class="section level1">
 <h1>Summary</h1>
-<p>We have explored different links for the gaussian distribution, but the gaussian distribution is <strong>not</strong> a special case. Everything that was done here could be done for any distribution in the glm framework. Once you understand one distribution, you are very far along in understanding the other distributions. The glm framework can handle categorical response variables (binomial), integer response variables (poisson, negative binomial) right skewed response variables (gamma, inverse gaussian, tweedie) and symmetrical response variables (gaussian).</p>
+<p>Different links for the Gaussian distribution were explored, but the
+Gaussian distribution is <strong>not</strong> a special case. Everything
+that was done here could be done for any distribution in the glm
+framework.</p>
 </div>
 
 

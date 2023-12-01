@@ -14,25 +14,38 @@
 
 <title>Dealing With Right Skewed Data</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -50,55 +63,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -107,13 +119,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -125,7 +144,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -143,76 +342,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>When the response variable is right skewed, many think regression becomes difficult. Skewed data is generally thought of as problematic. However the glm framework provides two options for dealing with right skewed response variables. For the gamma and inverse gaussian distributions, a right skewed response variable is actually helpful.</p>
+<p>When the response variable is right skewed, many think regression
+becomes difficult. Skewed data is generally thought of as problematic.
+However the glm framework provides two options for dealing with right
+skewed response variables. For the gamma and inverse gaussian
+distributions, a right skewed response variable is actually helpful.</p>
 </div>
 <div id="different-shapes-of-a-gamma-distribution" class="section level1">
 <h1>Different shapes of a gamma distribution</h1>
-<p>The critical step is being able to spot a gamma distribution when you see one. Theatrical skewness is <span class="math inline">\(\frac{2}{\sqrt(shape)}\)</span>. If shape is small, the gamma distribution is right skewed. If shape increases, the gamma becomes more symmetrical</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Very right skewed. Skewness 2</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Gamma <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> Gamma)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x=</span>gamma)) <span class="sc">+</span> </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p>The critical step is being able to spot a gamma distribution when you
+see one. Theatrical skewness is <span class="math inline">\(\frac{2}{\sqrt(shape)}\)</span>. If shape is
+small, the gamma distribution is right skewed. If shape increases, the
+gamma becomes more symmetrical</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(GlmSimulatoR)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(dplyr, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Very right skewed. Skewness 2</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>gamma_rv <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> gamma_rv)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> gamma)) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Very right skewed and spread out more. Skewness 2</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Gamma <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">scale =</span> <span class="dv">5</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> Gamma)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x=</span>gamma)) <span class="sc">+</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Hump moves slightly towards the middle. Skewness 1.414214</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Gamma <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">2</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> Gamma)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x=</span>gamma)) <span class="sc">+</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Hump moves slightly more towards the middle. Skewness 1.154701</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Gamma <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> Gamma)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x=</span>gamma)) <span class="sc">+</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Hump moves slightly more towards the middle. Skewness 0.8944272</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Gamma <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">5</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> Gamma)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x=</span>gamma)) <span class="sc">+</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Nearly gaussian. Very slightly right skewed. Skewness .2</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Gamma <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">100</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> Gamma)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x=</span>gamma)) <span class="sc">+</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># Hump moves slightly more towards the middle. Skewness 1.154701</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>gamma_rv <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> gamma_rv)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> gamma)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># Nearly gaussian. Very slightly right skewed. Skewness .2</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>gamma_rv <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">100</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">gamma =</span> gamma_rv)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">ggplot</span>(temp, <span class="fu">aes</span>(<span class="at">x =</span> gamma)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="building-models-with-very-skewed-data" class="section level1">
 <h1>Building models with very skewed data</h1>
-<p>To show the generalized linear model can handle skewness, lets make some data and train a model and calculate mean squared error.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make data</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_gamma</span>(<span class="at">N =</span> <span class="dv">10000</span>, <span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>, </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">ancillary =</span> .<span class="dv">05</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Confirm Y ~ gamma</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> Y)) <span class="sc">+</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p>To show the generalized linear model can handle skewness, lets make
+data and train a model and calculate mean squared error.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Make data</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>simdata <span class="ot">&lt;-</span> <span class="fu">simulate_gamma</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">N =</span> <span class="dv">10000</span>, <span class="at">link =</span> <span class="st">&quot;inverse&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">ancillary =</span> .<span class="dv">05</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># Confirm Y ~ gamma</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="fu">ggplot</span>(simdata, <span class="fu">aes</span>(<span class="at">x =</span> Y)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span>  X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="st">&quot;inverse&quot;</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Mean Squared Error</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((simdata<span class="sc">$</span>Y <span class="sc">-</span> <span class="fu">predict</span>(glm, <span class="at">newdata =</span> simdata, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.004147222</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3, <span class="at">data =</span> simdata, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="st">&quot;inverse&quot;</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Mean Squared Error</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="fu">mean</span>((simdata<span class="sc">$</span>Y <span class="sc">-</span> <span class="fu">predict</span>(glm, <span class="at">newdata =</span> simdata, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; [1] 0.004147222</span></span></code></pre></div>
 </div>
 
 

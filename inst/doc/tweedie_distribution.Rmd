@@ -2,7 +2,7 @@
 title: "Tweedie Distribution"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tweedie_Distribution}
+  %\VignetteIndexEntry{Tweedie Distribution}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,7 +21,7 @@ The tweedie distribution is a new comer to generalized linear model framework. I
   + $\rho$ = 2 gamma
   + $\rho$ = 3 inverse gaussian
 
-The probability density function cannot be evaluated directly. Instead special algorithms must be created to calculate the density. Interested statisticians should read [Evaluation of Tweedie exponential dispersion model densities by Fourier inversion](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.449.2161&rep=rep1&type=pdf). The author created the R package tweedie; which GlmSimulatoR relies upon.
+For many parameters, the probability density function cannot be evaluated directly. Instead special algorithms must be created to calculate the density. Interested statisticians should read [Evaluation of Tweedie exponential dispersion model densities by Fourier inversion](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.449.2161&rep=rep1&type=pdf). The author created the R package tweedie; which GlmSimulatoR relies upon.
 
 Due to computational demands associated with the tweedie distribution and software available in R, this package focuses on tweedie distributions with $\rho$ in [1, 2] and $\sigma^2$ equal to 1.
 
@@ -38,16 +38,15 @@ set.seed(1)
 
 simdata <- simulate_tweedie(weight = .2, ancillary = 1.15, link = "log")
 
-ggplot(simdata, aes(x = Y)) + 
+ggplot(simdata, aes(x = Y)) +
   geom_histogram(bins = 30)
 ```
 
 The response variable is usually zero, but sometimes it is positive. This is what makes the tweedie distribution unique.
 
 ```{r model2, echo=TRUE}
-glmModel <- cpglm(Y ~ X1, data =simdata, link = "log")
-summary(glmModel)
-
+glm_model <- cpglm(Y ~ X1, data = simdata, link = "log")
+summary(glm_model)
 ```
 
 The estimated index parameter is very close to $\rho$ (the ancillary argument), and the estimated weights are close to $\beta$ (the weight argument). Overall the function worked well.
